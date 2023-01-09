@@ -1,11 +1,16 @@
-import { Text, View, Button } from 'react-native';
-import { useState, useCallback, useEffect } from 'react';
+import 'react-native-gesture-handler';
+import { Text } from 'react-native';
+import { useState, useEffect, useContext } from 'react';
 import * as Font from 'expo-font';
-import Welcome from './Welcome';
-import Navigator from './routes/loginStack';
+import { NavigationContainer } from '@react-navigation/native';
+import AuthStack from './routes/AuthStack';
+import AppStack from './routes/AppStack';
+import AuthProvider, { AuthContext } from './context/AuthContext';
 
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
+
+  //const {isLoading, userToken} = useContext(AuthContext);
 
   useEffect(() => {
     const prepare = async () => {
@@ -27,7 +32,12 @@ const App = () => {
 
   if(isLoaded){
     return(
-      <Navigator />
+      <AuthProvider>
+        <NavigationContainer>
+          {/* {userToken != null ? <AppStack /> : <AuthStack />} */}
+          <AppStack />
+        </NavigationContainer>
+      </AuthProvider>
     );
   } else {
     return(

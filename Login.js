@@ -1,13 +1,16 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useState, useContext } from 'react';
 import { View, Text, TouchableOpacity, Alert } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import login from './assets/styles/login';
+import { AuthContext } from './context/AuthContext';
 
 const Login = ({ navigation }) => {
   const [username, setUsername] = useState('');
   const [password, setPassword] = useState('');
   const [accessToken, setAccessToken] = useState(null);
   const [refreshToken, setRefreshToken] = useState(null);
+
+  const {login} = useContext(AuthContext);
 
   useEffect(() => {
     if(accessToken != null && refreshToken != null){
@@ -17,7 +20,7 @@ const Login = ({ navigation }) => {
 
   const Login = async () => {
     if(username.length > 0 && password.length > 0){
-      await fetch('https://9533-95-85-212-16.eu.ngrok.io/api/User/Login', {
+      await fetch('https://a9f9-95-85-212-16.eu.ngrok.io/api/User/Login', {
         method: 'POST',
         headers: {
           'content-type': 'application/json'
@@ -70,7 +73,7 @@ const Login = ({ navigation }) => {
           />
         </View>
         <View style={login.center}>
-          <TouchableOpacity onPress={() => Login()} style={login.button}>
+          <TouchableOpacity onPress={() => login()/*Login()*/} style={login.button}>
             <Text style={login.text}>Login</Text>
           </TouchableOpacity>
         </View>
