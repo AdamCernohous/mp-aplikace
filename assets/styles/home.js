@@ -57,6 +57,10 @@ const home = StyleSheet.create({
     height: 150,
     backgroundColor: '#BABABA',
     marginTop: 10
+  },
+  modal: {
+    height: 500,
+    margin: 20
   }
 });
 

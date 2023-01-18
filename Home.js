@@ -1,10 +1,56 @@
-import { View, Text, SafeAreaView } from "react-native";
+import axios from "axios";
+import { useEffect, useState } from "react";
+import { View, Text, SafeAreaView, ActivityIndicator, Modal } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import home from "./assets/styles/home";
 import HomeCard from "./components/HomeCard";
 import HomeSelectBtn from "./components/HomeSelectBtn";
 
 const Home = () => {
+
+  const [isLoading, setIsLoading] = useState(true);
+  const [error, setError] = useState();
+  const [response, setResponse] = useState([]);
+
+  const [modalOpen, setModalOpen] = useState(false);
+
+  const getData = () => {
+    fetch('https://fe7f-95-85-212-16.eu.ngrok.io/api/Castle/AllCastles')
+      .then(response => response.json())
+      .then(data => setResponse(data.castles))
+      .catch(err => console.error(err))
+      .finally(() => setIsLoading(false));
+  }
+
+  useEffect(() => {
+    setIsLoading(true);
+    getData();
+  }, [setResponse]);
+
+  const showContent = () => {
+    if(isLoading) {
+      return <ActivityIndicator size="large" />
+    }
+
+    console.log(response);
+    return(
+      <>
+        {
+          response.map(location => {
+            return(
+              <HomeCard
+                key={location.CastleID}
+                name={location.name}
+                description={location.description}
+                rating={location.rating}
+              />
+            )
+          })
+        }
+      </>
+    )
+  }
+
   return (
     <SafeAreaView style={{flex: 1, backgroundColor: '#23ABDB'}}>
       <View style={home.container}>
@@ -80,12 +126,13 @@ const Home = () => {
           </ScrollView>
         </View>
         <ScrollView>
-          <HomeCard />
-          <HomeCard />
-          <HomeCard />
-          <HomeCard />
-          <HomeCard />
+          {showContent()}
         </ScrollView>
+        <Modal visible={true} animationType="slide">
+          <View style={home.modal}>
+            <Text>Hello from Modal</Text>
+          </View>
+        </Modal>
       </View>
     </SafeAreaView>
   );

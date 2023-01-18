@@ -1,18 +1,20 @@
-import { Image, Text, View } from 'react-native';
+import { Image, Text, TouchableOpacity, View } from 'react-native';
 import home from '../assets/styles/home';
 
-const HomeCard = () => {
+const HomeCard = ({ name, description, rating }) => {
   return (
-    <View style={home.card}>
-      <View style={home.cardHeading}>
-        <Text style={home.cardHeader}>Restaurant</Text>
-        <View style={home.cardRating}>
-          <Text style={home.cardRatingText}>4.4</Text>
-          <Text style={home.cardRatingText}>*</Text>
+    <TouchableOpacity>
+      <View style={home.card}>
+        <View style={home.cardHeading}>
+          <Text style={home.cardHeader}>{name}</Text>
+          <View style={home.cardRating}>
+            <Text style={home.cardRatingText}>{rating}</Text>
+            <Text style={home.cardRatingText}>*</Text>
+          </View>
         </View>
+        <View style={home.cardImage} />
       </View>
-      <View style={home.cardImage} />
-    </View>
+    </TouchableOpacity>
   );
 }
  
