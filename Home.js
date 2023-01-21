@@ -1,10 +1,12 @@
 import axios from "axios";
 import { useEffect, useState } from "react";
-import { View, Text, SafeAreaView, ActivityIndicator, Modal } from "react-native";
+import { View, Text, SafeAreaView, ActivityIndicator, TouchableOpacity } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import home from "./assets/styles/home";
 import HomeCard from "./components/HomeCard";
 import HomeSelectBtn from "./components/HomeSelectBtn";
+import BottomSheet from './components/BottomSheet';
+import { color } from "react-native-reanimated";
 
 const Home = () => {
 
@@ -12,10 +14,11 @@ const Home = () => {
   const [error, setError] = useState();
   const [response, setResponse] = useState([]);
 
-  const [modalOpen, setModalOpen] = useState(false);
+  const [showSheet, setShowSheet] = useState(false);
+  const [sheetId, setSheetId] = useState('');
 
   const getData = () => {
-    fetch('https://fe7f-95-85-212-16.eu.ngrok.io/api/Castle/AllCastles')
+    fetch('https://44aa-95-85-212-16.eu.ngrok.io/api/Castle/AllCastles')
       .then(response => response.json())
       .then(data => setResponse(data.castles))
       .catch(err => console.error(err))
@@ -38,12 +41,17 @@ const Home = () => {
         {
           response.map(location => {
             return(
-              <HomeCard
-                key={location.CastleID}
-                name={location.name}
-                description={location.description}
-                rating={location.rating}
-              />
+              <TouchableOpacity onPress={() => {
+                setShowSheet(true);
+                setSheetId(location.CastleID)
+              }}>
+                <HomeCard
+                  key={location.CastleID}
+                  name={location.name}
+                  description={location.description}
+                  rating={location.rating}
+                />
+              </TouchableOpacity>
             )
           })
         }
@@ -52,7 +60,7 @@ const Home = () => {
   }
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#23ABDB'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#D6D6D6'}}>
       <View style={home.container}>
         <View style={{paddingLeft: '5%', paddingRight: '5%'}}>
           <TextInput
@@ -63,76 +71,39 @@ const Home = () => {
         </View>
         <View style={{height: 55}}>
           <ScrollView horizontal={true} style={home.select}>
-            <HomeSelectBtn
-              bg={'#FFF'}
-              color={'#000'}
-              width={90}
-              height={35}
-              pH={10}
-              pV={5}
+            <HomeSelectBtn bg={'#23ABDB'} width={90} height={35} pH={10} pV={5}
             >
-              <Text style={home.text}>Outlook</Text>
+              <Text style={[home.text, {color: '#FFF'}]}>Outlook</Text>
             </HomeSelectBtn>
-            <HomeSelectBtn
-              bg={'#FFF'}
-              color={'#000'}
-              width={70}
-              height={35}
-              pH={10}
-              pV={5}
+            <HomeSelectBtn bg={'#FFF'} width={70} height={35} pH={10} pV={5}
             >
-              <Text style={home.text}>Park</Text>
+              <Text style={[home.text, {color: '#000'}]}>Park</Text>
             </HomeSelectBtn>
-            <HomeSelectBtn
-              bg={'#FFF'}
-              color={'#000'}
-              width={120}
-              height={35}
-              pH={10}
-              pV={5}
+            <HomeSelectBtn bg={'#FFF'} width={120} height={35} pH={10} pV={5}
             >
-              <Text style={home.text}>Restaurant</Text>
+              <Text style={[home.text, {color: '#000'}]}>Restaurant</Text>
             </HomeSelectBtn>
-            <HomeSelectBtn
-              bg={'#FFF'}
-              color={'#000'}
-              width={100}
-              height={35}
-              pH={10}
-              pV={5}
+            <HomeSelectBtn bg={'#FFF'} width={100} height={35} pH={10} pV={5}
             >
-              <Text style={home.text}>Museum</Text>
+              <Text style={[home.text, {color: '#000'}]}>Museum</Text>
             </HomeSelectBtn>
-            <HomeSelectBtn
-              bg={'#FFF'}
-              color={'#000'}
-              width={80}
-              height={35}
-              pH={10}
-              pV={5}
+            <HomeSelectBtn bg={'#FFF'}width={80} height={35} pH={10} pV={5}
             >
-              <Text style={home.text}>Castle</Text>
+              <Text style={[home.text, {color: '#000'}]}>Castle</Text>
             </HomeSelectBtn>
-            <HomeSelectBtn
-              bg={'#FFF'}
-              color={'#000'}
-              width={90}
-              height={35}
-              pH={10}
-              pV={5}
+            <HomeSelectBtn bg={'#FFF'} width={90} height={35} pH={10} pV={5}
             >
-              <Text style={home.text}>Church</Text>
+              <Text style={[home.text, {color: '#000'}]}>Church</Text>
             </HomeSelectBtn>
           </ScrollView>
         </View>
         <ScrollView>
           {showContent()}
         </ScrollView>
-        <Modal visible={true} animationType="slide">
-          <View style={home.modal}>
-            <Text>Hello from Modal</Text>
-          </View>
-        </Modal>
+        <BottomSheet
+          showSheet={showSheet}
+          setShowSheet={setShowSheet}
+        />
       </View>
     </SafeAreaView>
   );

@@ -3,7 +3,6 @@ import home from '../assets/styles/home';
 
 const HomeCard = ({ name, description, rating }) => {
   return (
-    <TouchableOpacity>
       <View style={home.card}>
         <View style={home.cardHeading}>
           <Text style={home.cardHeader}>{name}</Text>
@@ -14,7 +13,6 @@ const HomeCard = ({ name, description, rating }) => {
         </View>
         <View style={home.cardImage} />
       </View>
-    </TouchableOpacity>
   );
 }
  
