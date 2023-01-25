@@ -46,7 +46,7 @@ const Map = () => {
   },[location, locations]);
 
   const getLocations = () => {
-    fetch('https://44aa-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position')
+    fetch('https://1eb7-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position')
     .then(response => response.json())
     .then(data => {
       setLocations(data.positionModels);
@@ -73,7 +73,7 @@ const Map = () => {
     >
       {locations.map(location => {
         if(typeof location === 'object') {
-          return <Marker key={location.id} coordinate={{latitude: location.latitude, longitude: location.longtitude}}/>
+          return <Marker key={location.id} coordinate={{latitude: location.longtitude, longitude: location.latitude}}/>
         }
         return null;
       })}

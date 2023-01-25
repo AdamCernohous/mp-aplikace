@@ -7,10 +7,13 @@ const Drawer = createDrawerNavigator();
 
 const AppStack = () => {
   return (
-    <Drawer.Navigator drawerContent={props => <CustomDrawer {...props} />} screenOptions={{headerShown: false}}>
+    <>
+    <Drawer.Navigator screenOptions={{headerShown: false}}>
       <Drawer.Screen name="Home" component={Home} />
       <Drawer.Screen name="Map" component={Map} />
     </Drawer.Navigator>
+    <CustomDrawer />
+    </>
   );
 }
  

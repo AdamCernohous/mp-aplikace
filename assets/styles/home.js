@@ -15,10 +15,23 @@ const home = StyleSheet.create({
     fontFamily: 'poppins-regular',
     fontSize: 18
   },
-  select: {
+  selectContiner: {
+    width: '100%',
     marginTop: 10,
     paddingLeft: '5%',
-    paddingRight: '5%',
+  },
+  select: {
+    height: 35,
+    paddingHorizontal: 15,
+    paddingVertical: 5,
+    borderRadius: '50%',
+    display: 'flex',
+    // alignItems: 'center',
+    // justifyContent: 'center',
+    marginRight: 10,
+    shadowColor: '#000',
+    shadowOpacity: .2,
+    shadowOffset:{width: 0, height: 3}
   },
   text: {
     fontFamily: 'poppins-regular',
