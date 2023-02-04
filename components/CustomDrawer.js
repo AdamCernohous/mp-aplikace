@@ -23,8 +23,11 @@ const CustomDrawer = () => {
       }}>
         <MaterialIcons name='map-outline' size={32} color={active === 2 ? '#23ABDB' : '#949494'} />
       </TouchableOpacity>
-      <TouchableOpacity>
-        <MaterialIcons name='home' size={32} color='#949494' />
+      <TouchableOpacity onPress={() => {
+        setActive(3);
+        navigation.navigate('Leaderboard');
+      }}>
+        <MaterialIcons name='trophy' size={32} color={active === 3 ? '#23ABDB' : '#949494'} />
       </TouchableOpacity>
     </View>
   );
