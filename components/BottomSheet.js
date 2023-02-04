@@ -8,69 +8,61 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
 
   let ratingArray = ["", "", "", "", ""];
 
-  let url = `https://1eb7-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+  let url = `https://a866-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
 
   const getData = () => {
     switch(category){
       case 1:
-        url = `https://1eb7-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+        url = `https://a866-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
         break;
       case 2:
-        url = `https://1eb7-95-85-212-16.eu.ngrok.io/api/Park/Park/${sheetId}`;
+        url = `https://a866-95-85-212-16.eu.ngrok.io/api/Park/Park/${sheetId}`;
         break;
       case 3:
-        url = `https://1eb7-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/${sheetId}`;
+        url = `https://a866-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/${sheetId}`;
         break;
       case 4:
-        url = `https://1eb7-95-85-212-16.eu.ngrok.io/api/Museum/Museum/${sheetId}`;
+        url = `https://a866-95-85-212-16.eu.ngrok.io/api/Museum/Museum/${sheetId}`;
         break;
       case 5:
-        url = `https://1eb7-95-85-212-16.eu.ngrok.io/api/Castle/Castle/${sheetId}`;
+        url = `https://a866-95-85-212-16.eu.ngrok.io/api/Castle/Castle/${sheetId}`;
         break;
       case 6:
-        url = `https://1eb7-95-85-212-16.eu.ngrok.io/api/Church/Church/${sheetId}`;
+        url = `https://a866-95-85-212-16.eu.ngrok.io/api/Church/Church/${sheetId}`;
         break;
       default:
-        url = `https://1eb7-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+        url = `https://a866-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
         break;
     }
 
     fetch(url)
       .then(response => response.json())
-      .then(data => setResponse(data))
+      .then(data => setResponse(Object.values(data)[0]))
       .catch(err => console.error(err));
   }
 
   useEffect(() => {
     getData();
-  }, []);
+  }, [sheetId]);
 
-  const showRating = () => {
-    let ratings = 0;
-    // for(let i = 1; i < 6; i++){
-    //   if(i <= parseInt(response.rating)){
-    //     return <MaterialIcons name='star' size={32} color='#FFD600' />
-    //   }
-    //   else {
-    //     return <MaterialIcons name='star-border' size={32} color='#FFD600' />
-    //   }
-    // }
-    ratingArray.map(() => {
-      ratings++;
-      if(ratings <= response.rating){
-        return <MaterialIcons name='star' size={32} color='#FFD600' />
-      }
-      else {
-        return <MaterialIcons name='star-border' size={32} color='#FFD600' />
-      }
-    })
-  }
+  // const showRating = () => {
+  //   let ratings = 0;
+  //   ratingArray.map(() => {
+  //     ratings++;
+  //     if(ratings <= response.rating){
+  //       return <MaterialIcons name='star' size={32} color='#FFD600' />
+  //     }
+  //     else {
+  //       return <MaterialIcons name='star-border' size={32} color='#FFD600' />
+  //     }
+  //   })
+  // }
 
   return (
     <Modal visible={showSheet} animationType='slide'>
       <SafeAreaView style={styles.container}>
         <View style={styles.close}>
-          <Text style={styles.header}>{response.name}</Text>
+          <Text style={styles.header}>{response && response.name}</Text>
           <TouchableOpacity onPress={() => setShowSheet(false)}>
             <MaterialIcons name='close' size={32} color='#949494' />
           </TouchableOpacity>
@@ -82,16 +74,16 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
             <View style={styles.image} />
           </ScrollView>
           <View>
-            <Text style={styles.text}>{response.description}</Text>
+            <Text style={styles.text}>{response && response.description}</Text>
           </View>
           <View style={styles.row}>
             <View style={styles.rating}>
-              {showRating()}
-              {/* <MaterialIcons name='star' size={32} color='#FFD600' />
+              {/* {showRating()} */}
+              <MaterialIcons name='star' size={32} color='#FFD600' />
               <MaterialIcons name='star' size={32} color='#FFD600' />
               <MaterialIcons name='star' size={32} color='#FFD600' />
               <MaterialIcons name='star-half' size={32} color='#FFD600' />
-              <MaterialIcons name='star-border' size={32} color='#FFD600' /> */}
+              <MaterialIcons name='star-border' size={32} color='#FFD600' />
             </View>
             <TouchableOpacity style={styles.button}>
             <Text style={[styles.text, {color: '#FFF', fontSize: 18}]}>GO</Text>
@@ -120,8 +112,7 @@ const styles = StyleSheet.create({
   },
   header: {
     fontFamily: 'poppins-regular',
-    fontSize: 32,
-    // color: '#949494'
+    fontSize: 24,
   },
   images: {
     marginVertical: 15

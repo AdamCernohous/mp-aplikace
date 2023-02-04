@@ -16,30 +16,30 @@ const Home = () => {
   const [sheetId, setSheetId] = useState('');
 
   const [category, setCategory] = useState(1);
-  let url = 'https://1eb7-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+  let url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
 
   const getData = () => {
     switch(category){
       case 1:
-        url = 'https://1eb7-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+        url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
         break;
       case 2:
-        url = 'https://1eb7-95-85-212-16.eu.ngrok.io/api/Park/AllParks';
+        url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Park/AllParks';
         break;
       case 3:
-        url = 'https://1eb7-95-85-212-16.eu.ngrok.io/api/Restaurant/AllRestaurants';
+        url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Restaurant/AllRestaurants';
         break;
       case 4:
-        url = 'https://1eb7-95-85-212-16.eu.ngrok.io/api/Museum/AllMuseums';
+        url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Museum/AllMuseums';
         break;
       case 5:
-        url = 'https://1eb7-95-85-212-16.eu.ngrok.io/api/Castle/AllCastles';
+        url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Castle/AllCastles';
         break;
       case 6:
-        url = 'https://1eb7-95-85-212-16.eu.ngrok.io/api/Church/AllChurches';
+        url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Church/AllChurches';
         break;
       default:
-        url = 'https://1eb7-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+        url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
         break;
     }
 
@@ -68,7 +68,7 @@ const Home = () => {
             return(
               <TouchableOpacity onPress={() => {
                 setShowSheet(true);
-                setSheetId(location[0]);
+                setSheetId(Object.values(location)[0]);
               }}>
                 <HomeCard
                   key={location.CastleID}
