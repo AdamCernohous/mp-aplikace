@@ -47,7 +47,7 @@ const Map = () => {
   },[location, locations]);
 
   const getLocations = () => {
-    axios.get('https://fb7d-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position')
+    axios.get('https://f94f-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position')
     .then(data => {
       setLocations(data.data.positionModels);
       console.warn(data.data.positionModels);
@@ -73,7 +73,13 @@ const Map = () => {
     >
       {locations.map(location => {
         if(typeof location === 'object') {
-          return <Marker key={location.id} coordinate={{latitude: location.longtitude, longitude: location.latitude}}/>
+          return(
+            <Marker key={location.id} coordinate={{latitude: location.longtitude, longitude: location.latitude}}>
+              <View style={styles.marker}>
+                <View style={styles.image} />
+              </View>
+            </Marker>
+          )
         }
         return null;
       })}
@@ -83,7 +89,27 @@ const Map = () => {
 
 const styles = StyleSheet.create({
   map: {
-    flex: 1
+    flex: 1,
+  },
+  marker: {
+    width: 70,
+    height: 70,
+    backgroundColor: '#1DA1F2',
+    position: 'relative',
+    borderBottomLeftRadius: '50%',
+    borderTopRightRadius: '50%',
+    borderTopLeftRadius: '50%',
+    transform: [{ rotate: '45deg' }],
+    position: 'relative'
+  },
+  image: {
+    width: 60,
+    height: 60,
+    borderRadius: '50%',
+    position: 'absolute',
+    top: 5,
+    left: 5,
+    backgroundColor: '#FFF'
   }
 });
  

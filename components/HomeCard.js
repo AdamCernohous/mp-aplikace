@@ -8,7 +8,7 @@ const HomeCard = ({ name, description, rating }) => {
           <Text style={home.cardHeader}>{name}</Text>
           <View style={home.cardRating}>
             <Text style={home.cardRatingText}>{rating}</Text>
-            <Text style={home.cardRatingText}>*</Text>
+            <Text style={home.cardRatingText}></Text>
           </View>
         </View>
         <View style={home.cardImage} />

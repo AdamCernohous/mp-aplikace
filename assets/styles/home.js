@@ -21,7 +21,7 @@ const home = StyleSheet.create({
     height: 55,
     //backgroundColor: '#FFF',
     borderRadius: '50%',
-    borderColor: '#23ABDB',
+    borderColor: '#1DA1F2',
     borderWidth: 3,
     display: 'flex',
     alignItems: 'center',
@@ -34,7 +34,7 @@ const home = StyleSheet.create({
   },
   textInput: {
     width: '100%',
-    backgroundColor: '#E4E4E4',
+    backgroundColor: '#EEEEEE',
     height: 45,
     borderRadius: '50%',
     paddingLeft: '7%',
@@ -47,26 +47,34 @@ const home = StyleSheet.create({
     paddingLeft: '5%',
   },
   select: {
+    position: 'relative',
     height: 35,
     paddingHorizontal: 15,
     paddingVertical: 5,
-    borderRadius: '50%',
     display: 'flex',
-    // alignItems: 'center',
-    // justifyContent: 'center',
+    alignItems: 'center',
+    //justifyContent: 'center',
     marginRight: 10,
-    shadowColor: '#000',
-    shadowOpacity: .2,
-    shadowOffset:{width: 0, height: 3}
+  },
+  selectDot: {
+    bottom: -8,
+    width: 5,
+    height: 5,
+    borderRadius: '50%',
+    backgroundColor: '#1DA1F2'
   },
   text: {
     fontFamily: 'lato-regular',
     fontSize: 15
   },
+  selectText: {
+    fontFamily: 'lato-bold',
+    fontSize: 18
+  },
   card: {
     marginLeft: '5%',
     marginRight: '5%',
-    backgroundColor: '#E4E4E4',
+    backgroundColor: '#EEEEEE',
     borderRadius: 20,
     paddingTop: 10,
     paddingHorizontal: 20,
@@ -89,7 +97,7 @@ const home = StyleSheet.create({
   cardRatingText: {
     fontFamily: 'lato-regular',
     fontSize: 20,
-    color: '#FFD600'
+    color: '#000'
   },
   cardImage: {
     width: '100%',

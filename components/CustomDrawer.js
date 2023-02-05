@@ -15,19 +15,19 @@ const CustomDrawer = () => {
         setActive(1);
         navigation.navigate('Home')
       }}>
-        <MaterialIcons name='home' size={32} color={active === 1 ? '#23ABDB' : '#949494'} />
+        <MaterialIcons name='home' size={32} color={active === 1 ? '#1DA1F2' : '#949494'} />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => {
         setActive(2);
         navigation.navigate('Map');
       }}>
-        <MaterialIcons name='map-outline' size={32} color={active === 2 ? '#23ABDB' : '#949494'} />
+        <MaterialIcons name='map-outline' size={32} color={active === 2 ? '#1DA1F2' : '#949494'} />
       </TouchableOpacity>
       <TouchableOpacity onPress={() => {
         setActive(3);
         navigation.navigate('Leaderboard');
       }}>
-        <MaterialIcons name='trophy' size={32} color={active === 3 ? '#23ABDB' : '#949494'} />
+        <MaterialIcons name='trophy' size={32} color={active === 3 ? '#1DA1F2' : '#949494'} />
       </TouchableOpacity>
     </View>
   );

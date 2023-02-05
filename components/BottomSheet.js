@@ -9,30 +9,30 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
 
   let ratingArray = ["", "", "", "", ""];
 
-  let url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+  let url = `https://f94f-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
 
   const getData = () => {
     switch(category){
       case 1:
-        url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+        url = `https://f94f-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
         break;
       case 2:
-        url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Park/Park/${sheetId}`;
+        url = `https://f94f-95-85-212-16.eu.ngrok.io/api/Park/Park/${sheetId}`;
         break;
       case 3:
-        url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/${sheetId}`;
+        url = `https://f94f-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/${sheetId}`;
         break;
       case 4:
-        url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Museum/Museum/${sheetId}`;
+        url = `https://f94f-95-85-212-16.eu.ngrok.io/api/Museum/Museum/${sheetId}`;
         break;
       case 5:
-        url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Castle/Castle/${sheetId}`;
+        url = `https://f94f-95-85-212-16.eu.ngrok.io/api/Castle/Castle/${sheetId}`;
         break;
       case 6:
-        url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Church/Church/${sheetId}`;
+        url = `https://f94f-95-85-212-16.eu.ngrok.io/api/Church/Church/${sheetId}`;
         break;
       default:
-        url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+        url = `https://f94f-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
         break;
     }
 
