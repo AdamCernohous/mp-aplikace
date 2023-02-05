@@ -9,30 +9,30 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
 
   let ratingArray = ["", "", "", "", ""];
 
-  let url = `https://2786-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+  let url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
 
   const getData = () => {
     switch(category){
       case 1:
-        url = `https://2786-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+        url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
         break;
       case 2:
-        url = `https://2786-95-85-212-16.eu.ngrok.io/api/Park/Park/${sheetId}`;
+        url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Park/Park/${sheetId}`;
         break;
       case 3:
-        url = `https://2786-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/${sheetId}`;
+        url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/${sheetId}`;
         break;
       case 4:
-        url = `https://2786-95-85-212-16.eu.ngrok.io/api/Museum/Museum/${sheetId}`;
+        url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Museum/Museum/${sheetId}`;
         break;
       case 5:
-        url = `https://2786-95-85-212-16.eu.ngrok.io/api/Castle/Castle/${sheetId}`;
+        url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Castle/Castle/${sheetId}`;
         break;
       case 6:
-        url = `https://2786-95-85-212-16.eu.ngrok.io/api/Church/Church/${sheetId}`;
+        url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Church/Church/${sheetId}`;
         break;
       default:
-        url = `https://2786-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+        url = `https://fb7d-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
         break;
     }
 
@@ -61,35 +61,46 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
   return (
     <Modal visible={showSheet} animationType='slide'>
       <SafeAreaView style={styles.container}>
-        <View style={styles.close}>
-          <Text style={styles.header}>{response && response.name}</Text>
-          <TouchableOpacity onPress={() => setShowSheet(false)}>
-            <MaterialIcons name='close' size={32} color='#949494' />
-          </TouchableOpacity>
-        </View>
-        <View style={styles.content}>
-          <ScrollView style={styles.images} horizontal={true}>
-            <View style={styles.image} />
-            <View style={styles.image} />
-            <View style={styles.image} />
-          </ScrollView>
-          <View>
-            <Text style={styles.text}>{response && response.description}</Text>
+        <ScrollView>
+          <View style={styles.close}>
+            <Text style={styles.header}>{response && response.name}</Text>
+            <TouchableOpacity onPress={() => setShowSheet(false)}>
+              <MaterialIcons name='close' size={32} color='#949494' />
+            </TouchableOpacity>
           </View>
-          <View style={styles.row}>
-            <View style={styles.rating}>
-              {/* {showRating()} */}
-              <MaterialIcons name='star' size={32} color='#FFD600' />
-              <MaterialIcons name='star' size={32} color='#FFD600' />
-              <MaterialIcons name='star' size={32} color='#FFD600' />
-              <MaterialIcons name='star-half' size={32} color='#FFD600' />
-              <MaterialIcons name='star-border' size={32} color='#FFD600' />
+          <View style={styles.content}>
+            <ScrollView style={styles.images} horizontal={true}>
+              <View style={styles.image} />
+              <View style={styles.image} />
+              <View style={styles.image} />
+            </ScrollView>
+            <View>
+              <Text style={styles.text}>{response && response.description}</Text>
             </View>
-            <TouchableOpacity style={styles.button}>
-            <Text style={[styles.text, {color: '#FFF', fontSize: 18}]}>GO</Text>
-          </TouchableOpacity>
+            <View style={styles.row}>
+              <View style={styles.rating}>
+                {/* {showRating()} */}
+                <MaterialIcons name='star' size={32} color='#FFD600' />
+                <MaterialIcons name='star' size={32} color='#FFD600' />
+                <MaterialIcons name='star' size={32} color='#FFD600' />
+                <MaterialIcons name='star-half' size={32} color='#FFD600' />
+                <MaterialIcons name='star-border' size={32} color='#FFD600' />
+              </View>
+              <TouchableOpacity style={styles.button}>
+              <Text style={[styles.text, {color: '#FFF', fontSize: 18}]}>GO</Text>
+            </TouchableOpacity>
+            </View>
           </View>
-        </View>
+          <View style={styles.commentSection}>
+            <Text style={[styles.text, {fontSize: 18}]}>Ratings</Text>
+            <View style={styles.comments}>
+              <View style={styles.comment}>
+                <Text style={[styles.text, {color: '#949494'}]}>Andy</Text>
+                <Text style={styles.text}>Krásná vyhlídka!</Text>
+              </View>
+            </View>
+          </View>
+        </ScrollView>
       </SafeAreaView>
     </Modal>
   );
@@ -111,7 +122,7 @@ const styles = StyleSheet.create({
     
   },
   header: {
-    fontFamily: 'poppins-regular',
+    fontFamily: 'lato-regular',
     fontSize: 24,
   },
   images: {
@@ -124,7 +135,7 @@ const styles = StyleSheet.create({
     marginRight: 5
   },
   text: {
-    fontFamily: 'poppins-regular'
+    fontFamily: 'lato-regular'
   },
   row: {
     display: 'flex',
@@ -146,6 +157,12 @@ const styles = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
   },
+  commentSection: {
+
+  },
+  comments: {
+    marginTop: 15
+  }
 });
  
 export default BottomSheet;

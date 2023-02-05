@@ -12,10 +12,10 @@ const global = StyleSheet.create({
   titleBlack: {
     color: '#FFF',
     fontSize: 56,
-    fontFamily: 'poppins-black'
+    fontFamily: 'lato-bold'
   },
   text: {
-    fontFamily: 'poppins-regular',
+    fontFamily: 'lato-regular',
     fontSize: 16,
   },
   inputLogin: {

@@ -5,7 +5,7 @@ const leaderboard = StyleSheet.create({
     marginLeft: '7%',
     marginRight: '7%',
     marginTop: 20,
-    fontFamily: 'poppins-regular',
+    fontFamily: 'lato-regular',
   },
   header: {
     fontSize: 32,
@@ -32,7 +32,7 @@ const leaderboard = StyleSheet.create({
     paddingHorizontal: 10
   },
   text: {
-    fontFamily: 'poppins-regular',
+    fontFamily: 'lato-regular',
   }
 });
 

@@ -6,18 +6,44 @@ const home = StyleSheet.create({
     // paddingLeft: '5%',
     // paddingRight: '5%',
   },
+  head: {
+    paddingLeft: '5%',
+    paddingRight: '5%',
+    height: 70,
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+  },
+  profile: {
+    margin: 5,
+    width: 55,
+    height: 55,
+    //backgroundColor: '#FFF',
+    borderRadius: '50%',
+    borderColor: '#23ABDB',
+    borderWidth: 3,
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  profileCenter: {
+    dispaly: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
   textInput: {
     width: '100%',
-    backgroundColor: '#FFF',
+    backgroundColor: '#E4E4E4',
     height: 45,
     borderRadius: '50%',
     paddingLeft: '7%',
-    fontFamily: 'poppins-regular',
+    fontFamily: 'lato-regular',
     fontSize: 18
   },
   selectContiner: {
     width: '100%',
-    marginTop: 10,
+    marginTop: 15,
     paddingLeft: '5%',
   },
   select: {
@@ -34,13 +60,13 @@ const home = StyleSheet.create({
     shadowOffset:{width: 0, height: 3}
   },
   text: {
-    fontFamily: 'poppins-regular',
+    fontFamily: 'lato-regular',
     fontSize: 15
   },
   card: {
     marginLeft: '5%',
     marginRight: '5%',
-    backgroundColor: '#FFF',
+    backgroundColor: '#E4E4E4',
     borderRadius: 20,
     paddingTop: 10,
     paddingHorizontal: 20,
@@ -48,7 +74,7 @@ const home = StyleSheet.create({
     marginBottom: 20
   },
   cardHeader: {
-    fontFamily: 'poppins-regular',
+    fontFamily: 'lato-regular',
     fontSize: 20
   },
   cardHeading: {
@@ -61,7 +87,7 @@ const home = StyleSheet.create({
     flexDirection: 'row',
   },
   cardRatingText: {
-    fontFamily: 'poppins-regular',
+    fontFamily: 'lato-regular',
     fontSize: 20,
     color: '#FFD600'
   },

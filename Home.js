@@ -6,6 +6,8 @@ import home from "./assets/styles/home";
 import HomeCard from "./components/HomeCard";
 import HomeSelectBtn from "./components/HomeSelectBtn";
 import BottomSheet from './components/BottomSheet';
+import MaterialIcons from 'react-native-vector-icons/Fontisto';
+import * as Location from 'expo-location';
 
 const Home = () => {
   const [isLoading, setIsLoading] = useState(true);
@@ -15,31 +17,33 @@ const Home = () => {
   const [showSheet, setShowSheet] = useState(false);
   const [sheetId, setSheetId] = useState('');
 
+  const [currentCity, setCurrentCity] = useState('');
+
   const [category, setCategory] = useState(1);
-  let url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+  let url = 'https://fb7d-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
 
   const getData = () => {
     switch(category){
       case 1:
-        url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+        url = 'https://fb7d-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
         break;
       case 2:
-        url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Park/AllParks';
+        url = 'https://fb7d-95-85-212-16.eu.ngrok.io/api/Park/AllParks';
         break;
       case 3:
-        url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Restaurant/AllRestaurants';
+        url = 'https://fb7d-95-85-212-16.eu.ngrok.io/api/Restaurant/AllRestaurants';
         break;
       case 4:
-        url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Museum/AllMuseums';
+        url = 'https://fb7d-95-85-212-16.eu.ngrok.io/api/Museum/AllMuseums';
         break;
       case 5:
-        url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Castle/AllCastles';
+        url = 'https://fb7d-95-85-212-16.eu.ngrok.io/api/Castle/AllCastles';
         break;
       case 6:
-        url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Church/AllChurches';
+        url = 'https://fb7d-95-85-212-16.eu.ngrok.io/api/Church/AllChurches';
         break;
       default:
-        url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+        url = 'https://fb7d-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
         break;
     }
 
@@ -49,9 +53,26 @@ const Home = () => {
       .finally(() => setIsLoading(false));
   }
 
+  const getCurrentCity = async () => {
+    let { status } = await Location.requestForegroundPermissionsAsync();
+    if (status !== 'granted') {
+      console.error('Permission to access location was denied');
+      return;
+    }
+  
+    let location = await Location.getCurrentPositionAsync({});
+    let { latitude, longitude } = location.coords;
+  
+    let address = await Location.reverseGeocodeAsync({ latitude, longitude });
+    let city = address[0].city;
+
+    setCurrentCity(city);
+  }
+
   useEffect(() => {
     setIsLoading(true);
     getData();
+    getCurrentCity();
   }, [category, setCategory]);
 
   const showContent = () => {
@@ -84,7 +105,18 @@ const Home = () => {
   }
 
   return (
-    <SafeAreaView style={{flex: 1, backgroundColor: '#D6D6D6'}}>
+    <SafeAreaView style={{flex: 1, backgroundColor: '#FFF'}}>
+      <View style={[home.head, {marginTop: 10, marginBottom: 10}]}>
+        <View>
+          <Text style={[home.text, {fontSize: 16}]}>You're in {currentCity}</Text>
+          <Text style={[home.text, {fontSize: 32, fontFamily: 'lato-bold', marginBottom: 15}]}>Let's explore!</Text>
+        </View>
+        <View style={[home.profile, {marginBottom: 15}]}>
+          <TouchableOpacity style={home.profileCenter}>
+            <MaterialIcons name='person' size={28} color={'#23ABDB'} />
+          </TouchableOpacity>
+        </View>
+      </View>
       <View style={home.container}>
         <View style={{paddingLeft: '5%', paddingRight: '5%'}}>
           <TextInput
@@ -93,7 +125,7 @@ const Home = () => {
             placeholderTextColor={'#AFAFAF'}
           />
         </View>
-        <View style={{height: 55}}>
+        <View style={{height: 70}}>
           <ScrollView horizontal={true} style={home.selectContiner}>
             <TouchableOpacity onPress={() => setCategory(1)} style={[home.select, {backgroundColor: category === 1 ? '#23ABDB' : '#FFF', alignItems: 'center', justifyContent: 'center'}]}>
               <Text style={[home.text, {color: category === 1 ? '#FFF' : '#000'}]}>Outlook</Text>

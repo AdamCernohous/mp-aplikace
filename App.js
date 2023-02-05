@@ -24,8 +24,8 @@ const App = () => {
     const prepare = async () => {
       try{
         await Font.loadAsync({
-          'poppins-regular': require('./assets/fonts/Poppins-Regular.ttf'),
-          'poppins-black': require('./assets/fonts/Poppins-Black.ttf'),
+          'lato-regular': require('./assets/fonts/lato-regular.ttf'),
+          'lato-bold': require('./assets/fonts/lato-bold.ttf'),
         })
       } catch(err){
         console.err(err);
@@ -40,7 +40,8 @@ const App = () => {
   if(isLoaded){
     return(
       <NavigationContainer>
-        {userToken != null ? <AppStack /> : <AuthStack />}
+        {/* {userToken != null ? <AppStack /> : <AuthStack />} */}
+        <AppStack />
       </NavigationContainer>
     );
   } else {
