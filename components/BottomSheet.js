@@ -2,42 +2,42 @@ import { useEffect, useState } from "react";
 import { Modal, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
+import axios from "axios";
 
 const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
   const [response, setResponse] = useState(null);
 
   let ratingArray = ["", "", "", "", ""];
 
-  let url = `https://a866-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+  let url = `https://2786-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
 
   const getData = () => {
     switch(category){
       case 1:
-        url = `https://a866-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+        url = `https://2786-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
         break;
       case 2:
-        url = `https://a866-95-85-212-16.eu.ngrok.io/api/Park/Park/${sheetId}`;
+        url = `https://2786-95-85-212-16.eu.ngrok.io/api/Park/Park/${sheetId}`;
         break;
       case 3:
-        url = `https://a866-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/${sheetId}`;
+        url = `https://2786-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/${sheetId}`;
         break;
       case 4:
-        url = `https://a866-95-85-212-16.eu.ngrok.io/api/Museum/Museum/${sheetId}`;
+        url = `https://2786-95-85-212-16.eu.ngrok.io/api/Museum/Museum/${sheetId}`;
         break;
       case 5:
-        url = `https://a866-95-85-212-16.eu.ngrok.io/api/Castle/Castle/${sheetId}`;
+        url = `https://2786-95-85-212-16.eu.ngrok.io/api/Castle/Castle/${sheetId}`;
         break;
       case 6:
-        url = `https://a866-95-85-212-16.eu.ngrok.io/api/Church/Church/${sheetId}`;
+        url = `https://2786-95-85-212-16.eu.ngrok.io/api/Church/Church/${sheetId}`;
         break;
       default:
-        url = `https://a866-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+        url = `https://2786-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
         break;
     }
 
-    fetch(url)
-      .then(response => response.json())
-      .then(data => setResponse(Object.values(data)[0]))
+    axios.get(url)
+      .then(data => setResponse(Object.values(data.data)[0]))
       .catch(err => console.error(err));
   }
 

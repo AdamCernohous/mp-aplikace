@@ -2,6 +2,7 @@ import { View, Text, StyleSheet, Alert } from "react-native";
 import MapView, { Marker } from "react-native-maps";
 import { useEffect, useState, useRef } from "react";
 import * as Location from 'expo-location';
+import axios from "axios";
 
 const Map = () => {
   const [location, setLocation] = useState();
@@ -46,11 +47,10 @@ const Map = () => {
   },[location, locations]);
 
   const getLocations = () => {
-    fetch('https://a866-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position')
-    .then(response => response.json())
+    axios.get('https://2786-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position')
     .then(data => {
-      setLocations(data.positionModels);
-      console.warn(data.positionModels);
+      setLocations(data.data.positionModels);
+      console.warn(data.data.positionModels);
     })
     .catch(error => console.warn(error));
   }

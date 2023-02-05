@@ -16,36 +16,35 @@ const Home = () => {
   const [sheetId, setSheetId] = useState('');
 
   const [category, setCategory] = useState(1);
-  let url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+  let url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
 
   const getData = () => {
     switch(category){
       case 1:
-        url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+        url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
         break;
       case 2:
-        url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Park/AllParks';
+        url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Park/AllParks';
         break;
       case 3:
-        url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Restaurant/AllRestaurants';
+        url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Restaurant/AllRestaurants';
         break;
       case 4:
-        url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Museum/AllMuseums';
+        url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Museum/AllMuseums';
         break;
       case 5:
-        url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Castle/AllCastles';
+        url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Castle/AllCastles';
         break;
       case 6:
-        url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Church/AllChurches';
+        url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Church/AllChurches';
         break;
       default:
-        url = 'https://a866-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+        url = 'https://2786-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
         break;
     }
 
-    fetch(url)
-      .then(response => response.json())
-      .then(data => setResponse(Object.values(data)[0]))
+    axios.get(url)
+      .then(data => setResponse(Object.values(data.data)[0]))
       .catch(err => console.error(err))
       .finally(() => setIsLoading(false));
   }

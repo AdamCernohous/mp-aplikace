@@ -10,46 +10,58 @@ const Login = ({ navigation }) => {
   const [accessToken, setAccessToken] = useState(null);
   const [refreshToken, setRefreshToken] = useState(null);
 
-  const {login} = useContext(AuthContext);
+  const {loginFunction} = useContext(AuthContext);
+
+  var data = {
+    userName: "",
+    password: ""
+  };
 
   useEffect(() => {
-    if(accessToken != null && refreshToken != null){
-      navigation.navigate('AfterLogin');
+    data = {
+      userName: username,
+      password: password
     }
-  }, [accessToken, refreshToken]);
+  },[username, password])
 
-  const Login = async () => {
-    if(username.length > 0 && password.length > 0){
-      await fetch('https://a9f9-95-85-212-16.eu.ngrok.io/api/User/Login', {
-        method: 'POST',
-        headers: {
-          'content-type': 'application/json'
-        },
-        body: JSON.stringify({
-          userName: username,
-          password: password
-        })
-      })
-      .then(res => res.json())
-      .then(data => {
-        setAccessToken(data.accessToken);
-        setRefreshToken(data.refreshToken);
-        if(data.message != null){
-          Alert.alert(
-            "Login failed!",
-            data.message,
-            [
-              {
-                text: 'OK'
-              }
-            ]
-          );
-        }
-        console.log(data);
-      })
-      .catch(err => console.error(err));
-    }
-  }
+  // useEffect(() => {
+  //   if(accessToken != null && refreshToken != null){
+  //     navigation.navigate('AfterLogin');
+  //   }
+  // }, [accessToken, refreshToken]);
+
+  // const Login = async () => {
+  //   if(username.length > 0 && password.length > 0){
+  //     await fetch('https://2786-95-85-212-16.eu.ngrok.io/api/User/Login', {
+  //       method: 'POST',
+  //       headers: {
+  //         'content-type': 'application/json'
+  //       },
+  //       body: JSON.stringify({
+  //         userName: username,
+  //         password: password
+  //       })
+  //     })
+  //     .then(res => res.json())
+  //     .then(data => {
+  //       setAccessToken(data.accessToken);
+  //       setRefreshToken(data.refreshToken);
+  //       if(data.message != null){
+  //         Alert.alert(
+  //           "Login failed!",
+  //           data.message,
+  //           [
+  //             {
+  //               text: 'OK'
+  //             }
+  //           ]
+  //         );
+  //       }
+  //       console.log(data);
+  //     })
+  //     .catch(err => console.error(err));
+  //   }
+  // }
 
   return (
     <View style={login.container}>
@@ -73,7 +85,7 @@ const Login = ({ navigation }) => {
           />
         </View>
         <View style={login.center}>
-          <TouchableOpacity onPress={() => login()/*Login()*/} style={login.button}>
+          <TouchableOpacity onPress={() => loginFunction(data)} style={login.button}>
             <Text style={login.text}>Login</Text>
           </TouchableOpacity>
         </View>

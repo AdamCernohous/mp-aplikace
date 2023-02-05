@@ -5,12 +5,20 @@ import * as Font from 'expo-font';
 import { NavigationContainer } from '@react-navigation/native';
 import AuthStack from './routes/AuthStack';
 import AppStack from './routes/AppStack';
-import AuthProvider, { AuthContext } from './context/AuthContext';
+import { AuthProvider, AuthContext } from './context/AuthContext';
+
+const Root = () => {
+  return (
+    <AuthProvider>
+      <App />
+    </AuthProvider>
+  )
+}
 
 const App = () => {
   const [isLoaded, setIsLoaded] = useState(false);
 
-  //const {isLoading, userToken} = useContext(AuthContext);
+  const {isLoading, userToken} = useContext(AuthContext);
 
   useEffect(() => {
     const prepare = async () => {
@@ -22,7 +30,6 @@ const App = () => {
       } catch(err){
         console.err(err);
       } finally {
-        console.log('Fetch sucessfull!')
         setIsLoaded(true);
       }
     }
@@ -32,12 +39,9 @@ const App = () => {
 
   if(isLoaded){
     return(
-      <AuthProvider>
-        <NavigationContainer>
-          {/* {userToken != null ? <AppStack /> : <AuthStack />} */}
-          <AppStack />
-        </NavigationContainer>
-      </AuthProvider>
+      <NavigationContainer>
+        {userToken != null ? <AppStack /> : <AuthStack />}
+      </NavigationContainer>
     );
   } else {
     return(
@@ -46,4 +50,4 @@ const App = () => {
   }
 }
  
-export default App;
+export default Root;
