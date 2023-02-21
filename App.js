@@ -6,6 +6,7 @@ import { NavigationContainer } from '@react-navigation/native';
 import AuthStack from './routes/AuthStack';
 import AppStack from './routes/AppStack';
 import { AuthProvider, AuthContext } from './context/AuthContext';
+import { ThemeProvider } from './context/ThemeContext';
 
 const Root = () => {
   return (
@@ -41,7 +42,9 @@ const App = () => {
     return(
       <NavigationContainer>
         {/* {userToken != null ? <AppStack /> : <AuthStack />} */}
-        <AppStack />
+        <ThemeProvider>
+          <AppStack />
+        </ThemeProvider>
       </NavigationContainer>
     );
   } else {

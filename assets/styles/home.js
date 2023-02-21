@@ -34,7 +34,6 @@ const home = StyleSheet.create({
   },
   textInput: {
     width: '100%',
-    backgroundColor: '#EEEEEE',
     height: 45,
     borderRadius: '50%',
     paddingLeft: '7%',
@@ -74,15 +73,10 @@ const home = StyleSheet.create({
   card: {
     marginLeft: '5%',
     marginRight: '5%',
-    backgroundColor: '#EEEEEE',
-    borderRadius: 20,
-    paddingTop: 10,
-    paddingHorizontal: 20,
-    paddingBottom: 20,
     marginBottom: 20
   },
   cardHeader: {
-    fontFamily: 'lato-regular',
+    fontFamily: 'lato-bold',
     fontSize: 20
   },
   cardHeading: {
@@ -93,17 +87,17 @@ const home = StyleSheet.create({
   cardRating: {
     display: 'flex',
     flexDirection: 'row',
+    alignItems: 'center'
   },
   cardRatingText: {
     fontFamily: 'lato-regular',
-    fontSize: 20,
-    color: '#000'
+    fontSize: 16,
   },
   cardImage: {
     width: '100%',
-    height: 150,
-    backgroundColor: '#BABABA',
-    marginTop: 10
+    height: 200,
+    borderRadius: 20,
+    marginBottom: 10,
   },
   modal: {
     height: 500,

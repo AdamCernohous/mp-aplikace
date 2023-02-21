@@ -4,12 +4,11 @@ const drawer = StyleSheet.create({
   container: {
     position: 'absolute',
     bottom: 0,
-    backgroundColor: '#FFF',
     width: '90%',
     marginLeft: '5%',
     marginRight: '5%',
     marginBottom: '5%',
-    padding: 15,
+    padding: 10,
     borderRadius: 32,
     shadowColor: '#000',
     shadowOpacity: .2,

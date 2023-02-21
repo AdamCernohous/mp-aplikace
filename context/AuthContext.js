@@ -11,7 +11,7 @@ export const AuthProvider = ({children}) => {
   const loginFunction = async (data) => {
     try {
       setIsLoading(true);
-      axios.post('https://2786-95-85-212-16.eu.ngrok.io/api/User/Login', data)
+      axios.post('https://ea57-95-85-212-16.eu.ngrok.io/api/User/Login', data)
         .then(res => SecureStore.setItemAsync('userToken', res.data.accessToken));
       setIsLoading(false);
     } catch(err) {

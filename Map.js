@@ -47,7 +47,7 @@ const Map = () => {
   },[location, locations]);
 
   const getLocations = () => {
-    axios.get('https://f94f-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position')
+    axios.get('https://ea57-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position')
     .then(data => {
       setLocations(data.data.positionModels);
       console.warn(data.data.positionModels);
