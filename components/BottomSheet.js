@@ -7,6 +7,9 @@ import { LinearGradient } from 'expo-linear-gradient';
 
 const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
   const [response, setResponse] = useState(null);
+  const [images, setImages] = useState(null);
+  const [imageHighlight, setImageHighlight] = useState(null);
+  const [activeHighlight, setActiveHighlight] = useState(0);
 
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
@@ -41,26 +44,25 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
     axios.get(url)
       .then(data => setResponse(Object.values(data.data)[0]))
       .catch(err => console.error(err));
+
+    axios.get('https://ea57-95-85-212-16.eu.ngrok.io/api/User/Pictures/' + sheetId)
+      .then(res => setImages(Object.values(res.data)[0]));
   }
 
   useEffect(() => {
     getData();
-  }, [sheetId]);
+  }, [sheetId, setResponse, setImages]);
+
+  useEffect(() => {
+    if(images != null){
+      setImageHighlight(Object.values(images)[0].bytes);
+    }
+  },[images]);
 
   return (
     <Modal visible={showSheet} animationType='slide'>
       <ScrollView style={{position: 'relative'}}>
-        <Image
-          source={require('../assets/trosky.jpg')}
-          style={{
-            position: 'absolute',
-            top: 0,
-            left: 0,
-            width: windowWidth,
-            height: windowHeight/2.5,
-            zIndex: -2
-          }}
-        />
+        {imageHighlight ? <Image source={{ uri: `data:image/jpeg;base64,${imageHighlight}` }} style={{ position: 'absolute', top: 0, left: 0, width: windowWidth, height: windowHeight/2.3, zIndex: -2}} /> : null}
         <LinearGradient
           colors={['transparent', '#FFF']}
           start={{ x: 0, y: .5 }}
@@ -70,7 +72,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
             top: 0,
             left: 0,
             width: windowWidth,
-            height: windowHeight/2.5,
+            height: windowHeight/2.3,
             zIndex: -1,
           }}
         />
@@ -81,9 +83,22 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
             </TouchableOpacity>
           </View>
 
-          <View style={styles.imageSelect}>
-
-          </View>
+          <ScrollView horizontal={true} style={[styles.imageSelect, {marginTop: windowHeight/3.5}]}>
+            {
+              images && images.map((image, index) => {
+                return(
+                  <TouchableOpacity
+                    onPress={() => {
+                      setImageHighlight(image.bytes);
+                      setActiveHighlight(index);
+                    }}
+                  >
+                    <Image source={{ uri: `data:image/jpeg;base64,${image.bytes}` }} style={[styles.image, {borderColor:'#1DA1F2', borderWidth: activeHighlight === index ? 3 : 0}]} />
+                  </TouchableOpacity>
+                )
+              })
+            }
+          </ScrollView>
         </SafeAreaView>
       </ScrollView>        
     </Modal>
@@ -91,17 +106,22 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
 }
 
 const styles = StyleSheet.create({
-  safeArea: {
-    marginHorizontal: '5%'
-  },
   nav: {
     display: 'flex',
     flexDirection: 'row',
     alignItems: 'center',
-    justifyContent: 'flex-end'
+    justifyContent: 'flex-end',
+    marginHorizontal: '5%'
   },
   imageSelect: {
-    
+    marginLeft: '5%',
+    paddingBottom: 10
+  },
+  image: {
+    width: 120,
+    height: 75,
+    borderRadius: 10,
+    marginRight: 20
   }
 });
  
