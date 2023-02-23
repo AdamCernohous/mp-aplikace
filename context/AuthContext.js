@@ -11,8 +11,12 @@ export const AuthProvider = ({children}) => {
   const loginFunction = async (data) => {
     try {
       setIsLoading(true);
-      axios.post('https://ea57-95-85-212-16.eu.ngrok.io/api/User/Login', data)
-        .then(res => SecureStore.setItemAsync('userToken', res.data.accessToken));
+      axios.post('https://be2c-95-85-212-16.eu.ngrok.io/api/User/Login', data)
+        .then(res => {
+            SecureStore.setItemAsync('userToken', res.data.accessToken);
+            setUserToken(res.data.accessToken);
+        })
+        .catch(err => console.error(err));
       setIsLoading(false);
     } catch(err) {
       console.error(err);
@@ -39,7 +43,7 @@ export const AuthProvider = ({children}) => {
 
   useEffect(() => {
     isLoggedIn();
-  },[userToken]);
+  },[userToken, setUserToken]);
 
   return (
     <AuthContext.Provider value={{loginFunction, logoutFunction, isLoading, userToken}}>

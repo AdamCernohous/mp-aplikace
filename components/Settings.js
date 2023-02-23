@@ -2,9 +2,11 @@ import { SafeAreaView, View, Modal, TouchableOpacity, StyleSheet, Text, Switch }
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
+import { AuthContext } from "../context/AuthContext";
 
 const Settings = ({showSettings, setShowSettings}) => {
   const {theme, setTheme} = useContext(ThemeContext);
+  const {logoutFunction} = useContext(AuthContext);
 
   return (
     <Modal visible={showSettings} animationType='slide'>
@@ -27,7 +29,11 @@ const Settings = ({showSettings, setShowSettings}) => {
                 value={!theme}
               />
             </View>
+            <TouchableOpacity onPress={logoutFunction} style={styles.signOutButton}>
+              <Text style={styles.signOutButtonText}>Sign Out</Text>
+            </TouchableOpacity>
           </View>
+          
         </SafeAreaView>
       </View>
     </Modal>
@@ -57,6 +63,21 @@ const styles = StyleSheet.create({
     flexDirection: 'row',
     alignItems: 'center',
     justifyContent: 'space-between'
+  },
+  signOutButton: {
+    borderRadius: '50%',
+    width: '100%',
+    backgroundColor: 'red',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    marginTop: 15
+  },
+  signOutButtonText: {
+    fontFamily: 'lato-regular',
+    fontSize: 18,
+    color: '#FFF'
   }
 });
 

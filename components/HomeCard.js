@@ -14,7 +14,7 @@ const HomeCard = ({ name, description, rating, thumbnail }) => {
         <View style={home.cardHeading}>
           <Text style={[home.cardHeader, {color: theme ? '#000' : '#FFF'}]}>{name}</Text>
           <View style={home.cardRating}>
-            <MaterialIcons name='star' size={20} color='#FFD600' style={{marginRight: 5}} />
+            <MaterialIcons name='star' size={20} color='gold' style={{marginRight: 5}} />
             <Text style={[home.cardRatingText, {marginRight: 5, color: theme ? '#000' : '#FFF'}]}>{rating}</Text>
           </View>
         </View>

@@ -43,7 +43,7 @@ const App = () => {
       <NavigationContainer>
         {/* {userToken != null ? <AppStack /> : <AuthStack />} */}
         <ThemeProvider>
-          <AppStack />
+          {userToken != null ? <AppStack /> : <AuthStack />}
         </ThemeProvider>
       </NavigationContainer>
     );

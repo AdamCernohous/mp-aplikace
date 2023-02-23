@@ -1,5 +1,5 @@
 import { useEffect, useState } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import login from './assets/styles/login';
 
@@ -21,7 +21,7 @@ const Register = ({ navigation }) => {
 
   const Register = async () => {
     if(username.length > 0 && validateEmail(email) && password.length > 0){
-      await fetch('https://ea57-95-85-212-16.eu.ngrok.io/api/User/Register', {
+      await fetch('https://be2c-95-85-212-16.eu.ngrok.io/api/User/Register', {
         method: 'POST',
         headers: {
           'content-type': 'application/json'
@@ -65,6 +65,7 @@ const Register = ({ navigation }) => {
   }
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={login.container}>
       <View style={login.view}>
         <Text style={login.titleBlack}>Register.</Text>
@@ -98,6 +99,7 @@ const Register = ({ navigation }) => {
         </View>
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
  

@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from 'react';
-import { View, Text, TouchableOpacity, Alert } from 'react-native';
+import { View, Text, TouchableOpacity, Alert, TouchableWithoutFeedback, Keyboard } from 'react-native';
 import { TextInput } from 'react-native-gesture-handler';
 import login from './assets/styles/login';
 import { AuthContext } from './context/AuthContext';
@@ -64,6 +64,7 @@ const Login = ({ navigation }) => {
   // }
 
   return (
+    <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
     <View style={login.container}>
       <View style={login.view}>
         <Text style={login.titleBlack}>Login.</Text>
@@ -91,6 +92,7 @@ const Login = ({ navigation }) => {
         </View>
       </View>
     </View>
+    </TouchableWithoutFeedback>
   );
 }
  

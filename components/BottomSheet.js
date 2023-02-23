@@ -1,9 +1,11 @@
-import { useEffect, useState } from "react";
-import { Dimensions, Image, Modal, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View } from "react-native";
+import { useEffect, useState, useContext } from "react";
+import { Dimensions, Image, Modal, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View, TextInput, Keyboard, TouchableWithoutFeedback } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import axios from "axios";
 import { LinearGradient } from 'expo-linear-gradient';
+import { ThemeContext } from "../context/ThemeContext";
+import { AuthContext } from '../context/AuthContext';
 
 const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
   const [response, setResponse] = useState(null);
@@ -11,33 +13,51 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
   const [imageHighlight, setImageHighlight] = useState(null);
   const [activeHighlight, setActiveHighlight] = useState(0);
 
+  const [active, setActive] = useState(0);
+
+  const [rating, setRating] = useState(0);
+  const [comment, setComment] = useState('');
+
+  const [ratings, setRatings] = useState(null);
+  const [ratingsUrl, setRatingsUrl] = useState(`https://be2c-95-85-212-16.eu.ngrok.io/api/Outlook/OutlookRating/${sheetId}`)
+
+  const {theme} = useContext(ThemeContext);
+  const {userToken} = useContext(AuthContext);
+
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
 
-  let url = `https://ea57-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+  let url = `https://be2c-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
 
   const getData = () => {
     switch(category){
       case 1:
-        url = `https://ea57-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+        url = `https://be2c-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+        setRatingsUrl(`https://be2c-95-85-212-16.eu.ngrok.io/api/Outlook/OutlookRating/${sheetId}`);
         break;
       case 2:
-        url = `https://ea57-95-85-212-16.eu.ngrok.io/api/Park/Park/${sheetId}`;
+        url = `https://be2c-95-85-212-16.eu.ngrok.io/api/Park/Park/${sheetId}`;
+        setRatingsUrl(`https://be2c-95-85-212-16.eu.ngrok.io/api/Park/ParkRating/${sheetId}`);
         break;
       case 3:
-        url = `https://ea57-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/${sheetId}`;
+        url = `https://be2c-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/${sheetId}`;
+        setRatingsUrl(`https://be2c-95-85-212-16.eu.ngrok.io/api/Restaurant/RestaurantRating/${sheetId}`);
         break;
       case 4:
-        url = `https://ea57-95-85-212-16.eu.ngrok.io/api/Museum/Museum/${sheetId}`;
+        url = `https://be2c-95-85-212-16.eu.ngrok.io/api/Museum/Museum/${sheetId}`;
+        setRatingsUrl(`https://be2c-95-85-212-16.eu.ngrok.io/api/Museum/MuseumRating/${sheetId}`);
         break;
       case 5:
-        url = `https://ea57-95-85-212-16.eu.ngrok.io/api/Castle/Castle/${sheetId}`;
+        url = `https://be2c-95-85-212-16.eu.ngrok.io/api/Castle/Castle/${sheetId}`;
+        setRatingsUrl(`https://be2c-95-85-212-16.eu.ngrok.io/api/Castle/CasteRating/${sheetId}`);
         break;
       case 6:
-        url = `https://ea57-95-85-212-16.eu.ngrok.io/api/Church/Church/${sheetId}`;
+        url = `https://be2c-95-85-212-16.eu.ngrok.io/api/Church/Church/${sheetId}`;
+        setRatingsUrl(`https://be2c-95-85-212-16.eu.ngrok.io/api/Church/ChurchRating/${sheetId}`);
         break;
       default:
-        url = `https://ea57-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+        url = `https://be2c-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+        setRatingsUrl(`https://be2c-95-85-212-16.eu.ngrok.io/api/Outlook/OutlookRating/${sheetId}`);
         break;
     }
 
@@ -45,13 +65,96 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
       .then(data => setResponse(Object.values(data.data)[0]))
       .catch(err => console.error(err));
 
-    axios.get('https://ea57-95-85-212-16.eu.ngrok.io/api/User/Pictures/' + sheetId)
+    axios.get('https://be2c-95-85-212-16.eu.ngrok.io/api/User/Pictures/' + sheetId)
       .then(res => setImages(Object.values(res.data)[0]));
+    
+    axios.get(ratingsUrl)
+      .then(res => setRatings(Object.values(res.data)[0]))
   }
+
+  const postData = () => {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
+
+    switch(category){
+      case 1:
+        axios.post(`https://be2c-95-85-212-16.eu.ngrok.io/api/Outlook/OutlookRating/Post`, {
+          stars: rating,
+          comment: comment,
+          outlookID: sheetId
+        })
+          .then(res => console.log(res))
+          .catch(err => console.error(err));
+        break;
+      case 2:
+        axios.post(`https://be2c-95-85-212-16.eu.ngrok.io/api/Park/ParkRating/Post`, {
+          stars: rating,
+          comment: comment,
+          parkID: sheetId
+        })
+          .then(res => console.log(res))
+          .catch(err => console.error(err));
+        break;
+      case 3:
+        axios.post(`https://be2c-95-85-212-16.eu.ngrok.io/api/Restaurant/RestaurantRating/Post`, {
+          stars: rating,
+          comment: comment,
+          restaurantID: sheetId
+        })
+          .then(res => console.log(res))
+          .catch(err => console.error(err));
+        break;
+      case 4:
+        axios.post(`https://be2c-95-85-212-16.eu.ngrok.io/api/Museum/MuseumRating/Post`, {
+          stars: rating,
+          comment: comment,
+          museumID: sheetId
+        })
+          .then(res => console.log(res))
+          .catch(err => console.error(err));
+        break;
+      case 5:
+        axios.post(`https://be2c-95-85-212-16.eu.ngrok.io/api/Castle/CastleRating/Post`, {
+          stars: rating,
+          comment: comment,
+          castleID: sheetId
+        })
+          .then(res => console.log(res))
+          .catch(err => console.error(err));
+        break;
+      case 6:
+        axios.post(`https://be2c-95-85-212-16.eu.ngrok.io/api/Church/ChurchRating/Post`, {
+          stars: rating,
+          comment: comment,
+          churchID: sheetId
+        })
+          .then(res => console.log(res))
+          .catch(err => console.error(err));
+        break;
+      default:
+        axios.post(`https://be2c-95-85-212-16.eu.ngrok.io/api/Outlook/OutlookRating/Post`, {
+          stars: rating,
+          comment: comment,
+          outlookID: sheetId
+        })
+          .then(res => console.log(res))
+          .catch(err => console.error(err));
+        break;
+    }
+  }
+
+  const renderStar = (value) => {
+    const iconName = value <= rating ? 'star' : 'star-outline';
+
+    return (
+      <TouchableOpacity onPress={() => setRating(value)}>
+        <MaterialIcons name={iconName} size={32} color='gold' style={styles.star} />
+      </TouchableOpacity>
+    );
+  };
 
   useEffect(() => {
     getData();
-  }, [sheetId, setResponse, setImages]);
+  }, [sheetId, setResponse, setImages, setRatings, ratingsUrl]);
 
   useEffect(() => {
     if(images != null){
@@ -59,13 +162,77 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
     }
   },[images]);
 
+  const showContent = () => {
+    if(active === 0){
+      return(
+        <View style={styles.contentContainer}>
+          <View style={styles.contentHead}>
+            <Text style={[styles.contentHeaderText, {color: theme ? '#000' : '#FFF'}]}>{response && response.name}</Text>
+            <View style={styles.ratingContainer}>
+              <MaterialIcons name='star' size={20} color='gold' style={{marginRight: 5}} />
+              <Text style={[styles.ratingText, {color: theme ? '#000' : '#FFF'}]}>{response && response.rating}</Text>
+            </View>
+          </View>
+          <Text style={[styles.description, {color: theme ? '#000' : '#FFF'}]}>{response && response.description}</Text>
+        </View>
+      )
+    }
+    else if(active === 1){
+      return(
+        <ScrollView style={styles.contentContainer}>
+          {
+            ratings && ratings.map(rating => {
+              console.log(rating)
+              return(
+                <View style={styles.commentContainer}>
+                  <View style={styles.commentHead}>
+                    <Text style={[styles.ratingText, {color: theme ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)', fontSize: 16}]}>Matěj</Text>
+                    <View style={styles.ratingContainer}>
+                      <MaterialIcons name='star' size={20} color='gold' style={{marginRight: 5}} />
+                      <Text style={[styles.ratingText, {color: theme ? '#000' : '#FFF'}]}>{rating.stars}</Text>
+                    </View>
+                  </View>
+                  <Text style={[styles.ratingText, {color: theme ? '#000' : '#FFF', marginTop: 5}]}>{rating.comment}</Text>
+                </View>
+              )
+            })
+          }
+        </ScrollView>
+      )
+    }
+    else if(active === 2){
+      return(
+        <View style={styles.contentContainer}>
+          <Text style={[styles.contentHeaderText, {color: theme ? '#000' : '#FFF', fontSize: 22, marginTop: 10}]}>Rate this location</Text>
+          <TextInput
+            multiline={true}
+            numberOfLines={4}
+            onChangeText={text => setComment(text)}
+            style={[styles.ratingInput, {borderColor: theme ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)', color: theme ? '#000' : '#FFF'}]}
+          />
+          <View style={styles.ratingContainer2}>
+            {renderStar(1)}
+            {renderStar(2)}
+            {renderStar(3)}
+            {renderStar(4)}
+            {renderStar(5)}
+          </View>
+          <TouchableOpacity style={styles.ratingButton} onPress={() => postData()}>
+            <Text style={styles.ratingButtonText}>Rate</Text>
+          </TouchableOpacity>
+        </View>
+      )
+    }
+  }
+
   return (
     <Modal visible={showSheet} animationType='slide'>
-      <ScrollView style={{position: 'relative'}}>
+      <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
+      <View style={{position: 'relative', backgroundColor: theme ? '#FFF' : '#010101', zIndex: -3, flex: 1}}>
         {imageHighlight ? <Image source={{ uri: `data:image/jpeg;base64,${imageHighlight}` }} style={{ position: 'absolute', top: 0, left: 0, width: windowWidth, height: windowHeight/2.3, zIndex: -2}} /> : null}
         <LinearGradient
-          colors={['transparent', '#FFF']}
-          start={{ x: 0, y: .5 }}
+          colors={['transparent', theme ? '#FFF' : '#010101']}
+          start={{ x: 0, y: .75 }}
           end={{ x: 0, y: 1 }}
           style={{
             position: 'absolute',
@@ -76,7 +243,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
             zIndex: -1,
           }}
         />
-        <SafeAreaView style={styles.safeArea}>
+        <SafeAreaView style={[styles.safeArea, {}]}>
           <View style={styles.nav}>
             <TouchableOpacity style={{backgroundColor: '#FFF', borderRadius: '50%'}} onPress={() => setShowSheet(false)}>
               <MaterialIcons name='close' size={28} color='#000' />
@@ -99,8 +266,24 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
               })
             }
           </ScrollView>
+          <View style={[styles.contentNav]}>
+            <TouchableOpacity onPress={() => setActive(0)} style={styles.contentNavTextContainer}>
+              <Text style={[styles.contentNavText, {color: active === 0 ? '#1DA1F2' : (theme ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)')}]}>Details</Text>
+              <View style={[styles.contentNavTextUnderline, {backgroundColor: active === 0 ? '#1DA1F2' : 'rgba(0,0,0,0)'}]} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setActive(1)} style={styles.contentNavTextContainer}>
+              <Text style={[styles.contentNavText, {color: active === 1 ? '#1DA1F2' : (theme ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)')}]}>Reviews</Text>
+              <View style={[styles.contentNavTextUnderline, {backgroundColor: active === 1 ? '#1DA1F2' : 'rgba(0,0,0,0)'}]} />
+            </TouchableOpacity>
+            <TouchableOpacity onPress={() => setActive(2)} style={styles.contentNavTextContainer}>
+              <Text style={[styles.contentNavText, {color: active === 2 ? '#1DA1F2' : (theme ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)')}]}>Rate</Text>
+              <View style={[styles.contentNavTextUnderline, {backgroundColor: active === 2 ? '#1DA1F2' : 'rgba(0,0,0,0)'}]} />
+            </TouchableOpacity>
+          </View>
+          {showContent()}
         </SafeAreaView>
-      </ScrollView>        
+      </View>
+      </TouchableWithoutFeedback>       
     </Modal>
   );
 }
@@ -122,6 +305,101 @@ const styles = StyleSheet.create({
     height: 75,
     borderRadius: 10,
     marginRight: 20
+  },
+  contentNav: {
+    marginHorizontal: '5%',
+    marginTop: 10,
+    display: 'flex',
+    flexDirection: 'row'
+  },
+  contentNavTextContainer: {
+    paddingHorizontal: 20,
+    display: 'flex',
+    flexDirection: 'column',
+    alignItems: 'center',
+  },
+  contentNavText: {
+    fontFamily: 'lato-regular',
+    fontSize: 18
+  },
+  contentNavTextUnderline: {
+    width: '150%',
+    height: 4,
+    borderRadius: '50%',
+    marginTop: 5
+  },
+  contentContainer: {
+    marginHorizontal: '5%',
+    marginTop: 10
+  },
+  contentHead: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between',
+    marginTop: 10
+  },
+  contentHeaderText: {
+    fontFamily: 'lato-bold',
+    fontSize: 22
+  },
+  ratingContainer: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'center'
+  },
+  ratingText: {
+    fontFamily: 'lato-regular',
+    fontSize: 18
+  },
+  description: {
+    fontFamily: 'lato-regular',
+    fontSize: 16,
+    marginTop: 20
+  },
+  ratingInput: {
+    borderRadius: 10,
+    borderWidth: 2,
+    marginTop: 10,
+    padding: 10,
+    paddingTop: 10,
+    fontFamily: 'lato-regular',
+    height: 150
+  },
+  ratingContainer2: {
+    display: 'flex',
+    flexDirection: 'row',
+    marginTop: 10,
+    width: '100%'
+  },
+  star: {
+    marginRight: 5
+  },
+  ratingButton: {
+    borderRadius: '50%',
+    width: '100%',
+    backgroundColor: '#1DA1F2',
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    paddingVertical: 10,
+    marginTop: 15
+  },
+  ratingButtonText: {
+    fontFamily: 'lato-regular',
+    fontSize: 18,
+    color: '#FFF'
+  },
+  commentContainer: {
+    marginBottom: 20,
+    width: '90%'
+  },
+  commentHead: {
+    display: 'flex',
+    flexDirection: 'row',
+    alignItems: 'center',
+    justifyContent: 'space-between'
   }
 });
  

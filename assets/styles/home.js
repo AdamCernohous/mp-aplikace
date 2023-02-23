@@ -46,14 +46,14 @@ const home = StyleSheet.create({
     paddingLeft: '5%',
   },
   select: {
-    position: 'relative',
     height: 35,
     paddingHorizontal: 15,
     paddingVertical: 5,
     display: 'flex',
     alignItems: 'center',
-    //justifyContent: 'center',
+    justifyContent: 'center',
     marginRight: 10,
+    borderRadius: '50%'
   },
   selectDot: {
     bottom: -8,
