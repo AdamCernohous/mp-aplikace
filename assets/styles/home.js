@@ -41,7 +41,6 @@ const home = StyleSheet.create({
     fontSize: 18
   },
   selectContiner: {
-    width: '100%',
     marginTop: 15,
     paddingLeft: '5%',
   },
@@ -73,7 +72,7 @@ const home = StyleSheet.create({
   card: {
     marginLeft: '5%',
     marginRight: '5%',
-    marginBottom: 20
+    marginBottom: 20,
   },
   cardHeader: {
     fontFamily: 'lato-bold',
@@ -102,6 +101,20 @@ const home = StyleSheet.create({
   modal: {
     height: 500,
     margin: 20
+  },
+  searchContainer: {
+    position: 'absolute',
+    width: '90%',
+    marginHorizontal: '5%',
+    top: 50,
+    borderRadius: 10,
+    paddingBottom: 10
+  },
+  searchItem: {
+    marginHorizontal: 5,
+    padding: 10,
+    borderRadius: 10,
+    marginTop: 10
   }
 });
 
