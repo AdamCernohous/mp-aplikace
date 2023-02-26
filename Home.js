@@ -34,38 +34,38 @@ const Home = () => {
   const [searchData, setSearchedData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
-  let url = 'https://122a-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
-  let thumbnailUrl = 'https://122a-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
+  let url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+  let thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
 
   const getData = () => {
     switch(category){
       case 1:
-        url = 'https://122a-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
-        thumbnailUrl = 'https://122a-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
+        url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+        thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
         break;
       case 2:
-        url = 'https://122a-95-85-212-16.eu.ngrok.io/api/Park/AllParks';
-        thumbnailUrl = 'https://122a-95-85-212-16.eu.ngrok.io/api/Park/Park/Thumbnail';
+        url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Park/AllParks';
+        thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Park/Park/Thumbnail';
         break;
       case 3:
-        url = 'https://122a-95-85-212-16.eu.ngrok.io/api/Restaurant/AllRestaurants';
-        thumbnailUrl = 'https://122a-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/Thumbnail';
+        url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Restaurant/AllRestaurants';
+        thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/Thumbnail';
         break;
       case 4:
-        url = 'https://122a-95-85-212-16.eu.ngrok.io/api/Museum/AllMuseums';
-        thumbnailUrl = 'https://122a-95-85-212-16.eu.ngrok.io/api/Museum/Museum/Thumbnail';
+        url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Museum/AllMuseums';
+        thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Museum/Museum/Thumbnail';
         break;
       case 5:
-        url = 'https://122a-95-85-212-16.eu.ngrok.io/api/Castle/AllCastles';
-        thumbnailUrl = 'https://122a-95-85-212-16.eu.ngrok.io/api/Castle/Castle/Thumbnail';
+        url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Castle/AllCastles';
+        thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Castle/Castle/Thumbnail';
         break;
       case 6:
-        url = 'https://122a-95-85-212-16.eu.ngrok.io/api/Church/AllChurches';
-        thumbnailUrl = 'https://122a-95-85-212-16.eu.ngrok.io/api/Church/Church/Thumbnail';
+        url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Church/AllChurches';
+        thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Church/Church/Thumbnail';
         break;
       default:
-        url = 'https://122a-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
-        thumbnailUrl = 'https://122a-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
+        url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+        thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
         break;
     }
 
@@ -102,7 +102,7 @@ const Home = () => {
   }, [category, setCategory]);
 
   useEffect(() => {
-    axios.get('https://122a-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position')
+    axios.get('https://c648-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position')
       .then(res => setSearchedData(res.data.positionModels))
       .catch(err => console.error(err));
   },[setSearchedData]);
