@@ -12,7 +12,7 @@ const Leaderboard = () => {
 
   const getData = () => {
     setIsLoading(true);
-    axios.get('https://be2c-95-85-212-16.eu.ngrok.io/api/User/User/Leaderboard')
+    axios.get('https://bc25-95-85-212-16.eu.ngrok.io/api/User/User/Leaderboard')
       .then(res => setResponse(res.data.leadboard))
       .catch(err => console.error(err))
       .finally(() => setIsLoading(false));

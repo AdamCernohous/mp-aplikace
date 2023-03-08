@@ -4,7 +4,7 @@ import { AsyncStorage } from 'react-native';
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({children}) => {
-  const [theme, setTheme] = useState(false);
+  const [theme, setTheme] = useState(null);
 
   const storeTheme = async (value) => {
     try {
@@ -22,6 +22,10 @@ export const ThemeProvider = ({children}) => {
       console.error(err);
     }
   };
+
+  useEffect(() => {
+    getStoredTheme();
+  },[])
 
   useEffect(() => {
     storeTheme(theme);

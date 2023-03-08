@@ -60,13 +60,13 @@ const Map = () => {
   }, [location]);
 
   const getLocations = () => {
-    axios.get(`https://c648-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position`)
+    axios.get(`https://bc25-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position`)
       .then(data => setLocations(data.data.positionModels))
       .catch(error => console.error(error));
   }
 
   const getThumbnails = () => {
-    axios.get(`https://c648-95-85-212-16.eu.ngrok.io/api/User/Models/Thumbnails`)
+    axios.get(`https://bc25-95-85-212-16.eu.ngrok.io/api/User/Models/Thumbnails`)
       .then(res => setThumbnails(Object.values(res.data)[0]))
       .catch(err => console.error(err));
   }

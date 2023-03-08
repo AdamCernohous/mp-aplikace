@@ -34,38 +34,38 @@ const Home = () => {
   const [searchData, setSearchedData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
-  let url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
-  let thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
+  let url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+  let thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
 
   const getData = () => {
     switch(category){
       case 1:
-        url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
-        thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
+        url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+        thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
         break;
       case 2:
-        url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Park/AllParks';
-        thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Park/Park/Thumbnail';
+        url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Park/AllParks';
+        thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Park/Park/Thumbnail';
         break;
       case 3:
-        url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Restaurant/AllRestaurants';
-        thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/Thumbnail';
+        url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Restaurant/AllRestaurants';
+        thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/Thumbnail';
         break;
       case 4:
-        url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Museum/AllMuseums';
-        thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Museum/Museum/Thumbnail';
+        url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Museum/AllMuseums';
+        thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Museum/Museum/Thumbnail';
         break;
       case 5:
-        url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Castle/AllCastles';
-        thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Castle/Castle/Thumbnail';
+        url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Castle/AllCastles';
+        thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Castle/Castle/Thumbnail';
         break;
       case 6:
-        url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Church/AllChurches';
-        thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Church/Church/Thumbnail';
+        url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Church/AllChurches';
+        thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Church/Church/Thumbnail';
         break;
       default:
-        url = 'https://c648-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
-        thumbnailUrl = 'https://c648-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
+        url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
+        thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
         break;
     }
 
@@ -102,7 +102,7 @@ const Home = () => {
   }, [category, setCategory]);
 
   useEffect(() => {
-    axios.get('https://c648-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position')
+    axios.get('https://bc25-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position')
       .then(res => setSearchedData(res.data.positionModels))
       .catch(err => console.error(err));
   },[setSearchedData]);
@@ -120,8 +120,8 @@ const Home = () => {
               <TouchableOpacity 
                 onPress={() => { 
                   setSheetId(location.id);
-                  setShowSheet(true);
                   setSearched('');
+                  setShowSheet(true);
                 }}
                 style={[home.searchItem, {backgroundColor: theme ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.2)'}]}
               >
@@ -185,7 +185,7 @@ const Home = () => {
         <View style={home.container}>
           <View style={{paddingLeft: '5%', paddingRight: '5%'}}>
             <TextInput
-              style={[home.textInput, {backgroundColor: theme ? '#EEEEEE' : '#1D1D1D'}]}
+              style={[home.textInput, {backgroundColor: theme ? '#EEEEEE' : '#1D1D1D', color: theme ? '#000' : '#FFF'}]}
               placeholder='Search Locations'
               placeholderTextColor={theme ? '#AFAFAF' : '#626262'}
               onChangeText={text => setSearched(text)}
