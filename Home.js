@@ -34,38 +34,38 @@ const Home = () => {
   const [searchData, setSearchedData] = useState([]);
   const [filteredData, setFilteredData] = useState([]);
 
-  let url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
-  let thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
+  let url = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/AllOutlooks';
+  let thumbnailUrl = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/Outlook/Thumbnail';
 
   const getData = () => {
     switch(category){
       case 1:
-        url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
-        thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
+        url = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/AllOutlooks';
+        thumbnailUrl = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/Outlook/Thumbnail';
         break;
       case 2:
-        url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Park/AllParks';
-        thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Park/Park/Thumbnail';
+        url = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Park/AllParks';
+        thumbnailUrl = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Park/Park/Thumbnail';
         break;
       case 3:
-        url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Restaurant/AllRestaurants';
-        thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/Thumbnail';
+        url = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Restaurant/AllRestaurants';
+        thumbnailUrl = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Restaurant/Restaurant/Thumbnail';
         break;
       case 4:
-        url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Museum/AllMuseums';
-        thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Museum/Museum/Thumbnail';
+        url = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Museum/AllMuseums';
+        thumbnailUrl = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Museum/Museum/Thumbnail';
         break;
       case 5:
-        url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Castle/AllCastles';
-        thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Castle/Castle/Thumbnail';
+        url = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Castle/AllCastles';
+        thumbnailUrl = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Castle/Castle/Thumbnail';
         break;
       case 6:
-        url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Church/AllChurches';
-        thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Church/Church/Thumbnail';
+        url = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Church/AllChurches';
+        thumbnailUrl = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Church/Church/Thumbnail';
         break;
       default:
-        url = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/AllOutlooks';
-        thumbnailUrl = 'https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/Thumbnail';
+        url = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/AllOutlooks';
+        thumbnailUrl = 'https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/Outlook/Thumbnail';
         break;
     }
 
@@ -102,7 +102,7 @@ const Home = () => {
   }, [category, setCategory]);
 
   useEffect(() => {
-    axios.get('https://bc25-95-85-212-16.eu.ngrok.io/api/User/Models/All/Position')
+    axios.get('https://aplikaceturistickedestinace.azurewebsites.net/api/User/Models/All/Position')
       .then(res => setSearchedData(res.data.positionModels))
       .catch(err => console.error(err));
   },[setSearchedData]);

@@ -5,7 +5,7 @@ import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { ThemeContext } from '../context/ThemeContext';
 
 
-const HomeCard = ({ name, description, rating, thumbnail }) => {
+const HomeCard = ({ name, rating, thumbnail }) => {
   const {theme} = useContext(ThemeContext);
 
   return (
@@ -21,5 +21,5 @@ const HomeCard = ({ name, description, rating, thumbnail }) => {
       </View>
   );
 }
- 
+
 export default HomeCard;

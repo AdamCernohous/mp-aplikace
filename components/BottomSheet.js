@@ -19,7 +19,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
   const [comment, setComment] = useState('');
 
   const [ratings, setRatings] = useState(null);
-  const [ratingsUrl, setRatingsUrl] = useState(`https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/OutlookRating/${sheetId}`)
+  const [ratingsUrl, setRatingsUrl] = useState(`https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/OutlookRating/${sheetId}`)
 
   const {theme} = useContext(ThemeContext);
   const {userToken} = useContext(AuthContext);
@@ -27,37 +27,37 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
   const windowWidth = Dimensions.get('window').width;
   const windowHeight = Dimensions.get('window').height;
 
-  let url = `https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
+  let url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/Outlook/${sheetId}`;
 
   const getData = () => {
     switch(category){
       case 1:
-        url = `https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
-        setRatingsUrl(`https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/OutlookRating/${sheetId}`);
+        url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/Outlook/${sheetId}`;
+        setRatingsUrl(`https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/OutlookRating/${sheetId}`);
         break;
       case 2:
-        url = `https://bc25-95-85-212-16.eu.ngrok.io/api/Park/Park/${sheetId}`;
-        setRatingsUrl(`https://bc25-95-85-212-16.eu.ngrok.io/api/Park/ParkRating/${sheetId}`);
+        url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Park/Park/${sheetId}`;
+        setRatingsUrl(`https://aplikaceturistickedestinace.azurewebsites.net/api/Park/ParkRating/${sheetId}`);
         break;
       case 3:
-        url = `https://bc25-95-85-212-16.eu.ngrok.io/api/Restaurant/Restaurant/${sheetId}`;
-        setRatingsUrl(`https://bc25-95-85-212-16.eu.ngrok.io/api/Restaurant/RestaurantRating/${sheetId}`);
+        url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Restaurant/Restaurant/${sheetId}`;
+        setRatingsUrl(`https://aplikaceturistickedestinace.azurewebsites.net/api/Restaurant/RestaurantRating/${sheetId}`);
         break;
       case 4:
-        url = `https://bc25-95-85-212-16.eu.ngrok.io/api/Museum/Museum/${sheetId}`;
-        setRatingsUrl(`https://bc25-95-85-212-16.eu.ngrok.io/api/Museum/MuseumRating/${sheetId}`);
+        url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Museum/Museum/${sheetId}`;
+        setRatingsUrl(`https://aplikaceturistickedestinace.azurewebsites.net/api/Museum/MuseumRating/${sheetId}`);
         break;
       case 5:
-        url = `https://bc25-95-85-212-16.eu.ngrok.io/api/Castle/Castle/${sheetId}`;
-        setRatingsUrl(`https://bc25-95-85-212-16.eu.ngrok.io/api/Castle/CasteRating/${sheetId}`);
+        url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Castle/Castle/${sheetId}`;
+        setRatingsUrl(`https://aplikaceturistickedestinace.azurewebsites.net/api/Castle/CasteRating/${sheetId}`);
         break;
       case 6:
-        url = `https://bc25-95-85-212-16.eu.ngrok.io/api/Church/Church/${sheetId}`;
-        setRatingsUrl(`https://bc25-95-85-212-16.eu.ngrok.io/api/Church/ChurchRating/${sheetId}`);
+        url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Church/Church/${sheetId}`;
+        setRatingsUrl(`https://aplikaceturistickedestinace.azurewebsites.net/api/Church/ChurchRating/${sheetId}`);
         break;
       default:
-        url = `https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/Outlook/${sheetId}`;
-        setRatingsUrl(`https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/OutlookRating/${sheetId}`);
+        url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/Outlook/${sheetId}`;
+        setRatingsUrl(`https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/OutlookRating/${sheetId}`);
         break;
     }
 
@@ -65,7 +65,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
       .then(data => setResponse(Object.values(data.data)[0]))
       .catch(err => console.error(err));
 
-    axios.get('https://bc25-95-85-212-16.eu.ngrok.io/api/User/Pictures/' + sheetId)
+    axios.get('https://aplikaceturistickedestinace.azurewebsites.net/api/User/Pictures/' + sheetId)
       .then(res => setImages(Object.values(res.data)[0]));
     
     axios.get(ratingsUrl)
@@ -77,7 +77,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
 
     switch(category){
       case 1:
-        axios.post(`https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/OutlookRating/Post`, {
+        axios.post(`https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/OutlookRating/Post`, {
           stars: rating,
           comment: comment,
           outlookID: sheetId
@@ -86,7 +86,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
           .catch(err => console.error(err));
         break;
       case 2:
-        axios.post(`https://bc25-95-85-212-16.eu.ngrok.io/api/Park/ParkRating/Post`, {
+        axios.post(`https://aplikaceturistickedestinace.azurewebsites.net/api/Park/ParkRating/Post`, {
           stars: rating,
           comment: comment,
           parkID: sheetId
@@ -95,7 +95,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
           .catch(err => console.error(err));
         break;
       case 3:
-        axios.post(`https://bc25-95-85-212-16.eu.ngrok.io/api/Restaurant/RestaurantRating/Post`, {
+        axios.post(`https://aplikaceturistickedestinace.azurewebsites.net/api/Restaurant/RestaurantRating/Post`, {
           stars: rating,
           comment: comment,
           restaurantID: sheetId
@@ -104,7 +104,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
           .catch(err => console.error(err));
         break;
       case 4:
-        axios.post(`https://bc25-95-85-212-16.eu.ngrok.io/api/Museum/MuseumRating/Post`, {
+        axios.post(`https://aplikaceturistickedestinace.azurewebsites.net/api/Museum/MuseumRating/Post`, {
           stars: rating,
           comment: comment,
           museumID: sheetId
@@ -113,7 +113,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
           .catch(err => console.error(err));
         break;
       case 5:
-        axios.post(`https://bc25-95-85-212-16.eu.ngrok.io/api/Castle/CastleRating/Post`, {
+        axios.post(`https://aplikaceturistickedestinace.azurewebsites.net/api/Castle/CastleRating/Post`, {
           stars: rating,
           comment: comment,
           castleID: sheetId
@@ -122,7 +122,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
           .catch(err => console.error(err));
         break;
       case 6:
-        axios.post(`https://bc25-95-85-212-16.eu.ngrok.io/api/Church/ChurchRating/Post`, {
+        axios.post(`https://aplikaceturistickedestinace.azurewebsites.net/api/Church/ChurchRating/Post`, {
           stars: rating,
           comment: comment,
           churchID: sheetId
@@ -131,7 +131,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
           .catch(err => console.error(err));
         break;
       default:
-        axios.post(`https://bc25-95-85-212-16.eu.ngrok.io/api/Outlook/OutlookRating/Post`, {
+        axios.post(`https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/OutlookRating/Post`, {
           stars: rating,
           comment: comment,
           outlookID: sheetId
