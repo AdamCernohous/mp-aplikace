@@ -1,11 +1,10 @@
-import { View, Text, StyleSheet, Alert, ScrollView, TouchableOpacity, SafeAreaView, Image, TouchableWithoutFeedback } from "react-native";
-import MapView, { Marker } from "react-native-maps";
+import { View, StyleSheet, Alert, Image, TouchableOpacity } from "react-native";
+import MapView, { Marker, Circle } from "react-native-maps";
 import { useEffect, useState, useRef } from "react";
 import * as Location from 'expo-location';
 import axios from "axios";
-import home from './assets/styles/home';
-import { LinearGradient } from "expo-linear-gradient";
 import BottomSheet from "./components/BottomSheet";
+import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 
 const Map = () => {
   const [location, setLocation] = useState();
@@ -19,6 +18,16 @@ const Map = () => {
   const [sheetId, setSheetId] = useState('');
 
   const mapRef = useRef(null);
+
+  const [zoomLevel, setZoomLevel] = useState(10);
+
+  const [userLocation, setUserLocation] = useState();
+
+  const onRegionChangeComplete = (region) => {
+    const { latitudeDelta } = region;
+    const zoomLevel = Math.round(Math.log(360 / latitudeDelta) / Math.LN2);
+    setZoomLevel(zoomLevel);
+  };
 
   const getPermissions = async () => {
     let { status } = await Location.requestForegroundPermissionsAsync();
@@ -40,22 +49,33 @@ const Map = () => {
     console.log(currentLocation.coords);
   }
 
+  const getUserLocation = () => {
+    setInterval(async () => {
+      let currentLocation = await Location.getCurrentPositionAsync({});
+      setUserLocation(currentLocation.coords);
+    }, 1000)
+  }
+
+  const centerLocation = () => {
+    try {
+      mapRef.current.animateToRegion({
+        latitude: location.latitude,
+        longitude: location.longitude,
+        latitudeDelta: 0.05,
+        longitudeDelta: 0.05,
+      });
+    } catch (err) {
+      console.error(err);
+    }
+  }
+
   useEffect(() => {
     getPermissions();
   },[]);
 
   useEffect(() => {
     if (location) {
-      try {
-        mapRef.current.animateToRegion({
-          latitude: location.latitude,
-          longitude: location.longitude,
-          // latitudeDelta: 0.1,
-          // longitudeDelta: 0.1,
-        });
-      } catch (err) {
-        console.error(err);
-      }
+      centerLocation();
     }
   }, [location]);
 
@@ -110,8 +130,23 @@ const Map = () => {
     showBottomSheet()
   }, [setSheetId])
 
+  useEffect(() => {
+    getUserLocation();
+  }, [setUserLocation])
+
   return (
     <>
+      <TouchableOpacity
+        style={{
+          position: 'absolute',
+          right: 10,
+          top: 300,
+          zIndex: 100
+        }}
+        onPress={() => centerLocation()}
+      >
+        <MaterialIcons name='compass' size={42} color={'#1DA1F2'} />
+      </TouchableOpacity>
       <MapView
         ref={mapRef}
         style={styles.map}
@@ -122,6 +157,7 @@ const Map = () => {
           longitudeDelta: location ? location.accuracy : 0.2,
         }}
         location={location}
+        onRegionChangeComplete={onRegionChangeComplete}
       >
         {locations && locations.map(location => {
           if (typeof location === 'object') {
@@ -151,6 +187,15 @@ const Map = () => {
           }
           return null;
         })}
+        {location && (
+          <Circle
+            center={{ latitude: userLocation && userLocation.latitude, longitude: userLocation && userLocation.longitude }}
+            radius={(20 - zoomLevel) ** 2}
+            strokeWidth={(20 - zoomLevel) ** .5}
+            strokeColor='#FFF'
+            fillColor='#1DA1F2'
+          />
+        )}
       </MapView>
       <BottomSheet
         showSheet={showSheet}
