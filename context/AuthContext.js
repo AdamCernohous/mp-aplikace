@@ -13,6 +13,7 @@ export const AuthProvider = ({children}) => {
       setIsLoading(true);
       axios.post('https://aplikaceturistickedestinace.azurewebsites.net/api/User/Login', data)
         .then(res => {
+            console.log(res.data)
             SecureStore.setItemAsync('userToken', res.data.accessToken);
             setUserToken(res.data.accessToken);
         })

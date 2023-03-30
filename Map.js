@@ -1,14 +1,16 @@
 import { View, StyleSheet, Alert, Image, TouchableOpacity } from "react-native";
 import MapView, { Marker, Circle } from "react-native-maps";
-import { useEffect, useState, useRef } from "react";
+import { useEffect, useState, useRef, useContext } from "react";
 import * as Location from 'expo-location';
 import axios from "axios";
 import BottomSheet from "./components/BottomSheet";
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
+import { AuthContext } from "./context/AuthContext";
 
 const Map = () => {
   const [location, setLocation] = useState();
   const [locations, setLocations] = useState([]);
+  const [visitedLocations, setVisitedLocations] = useState([]);
 
   const [thumbnails, setThumbnails] = useState([]);
 
@@ -22,6 +24,52 @@ const Map = () => {
   const [zoomLevel, setZoomLevel] = useState(10);
 
   const [userLocation, setUserLocation] = useState();
+
+  const {userToken} = useContext(AuthContext);
+
+
+  const checkNearbyMarkers = () => {
+    if(locations != [] && userLocation != null){
+      locations.map(location => {
+        const distance = Math.sqrt((parseFloat(userLocation.latitude) - parseFloat(location.longtitude)) ** 2 + (parseFloat(userLocation.longitude) - parseFloat(location.latitude)) ** 2);
+        console.log(distance);
+        if(distance <= 0.0009){
+          try{
+            axios.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
+            axios.post('https://aplikaceturistickedestinace.azurewebsites.net/api/User/Model/Visited', {
+              modelID: location.id
+            })
+              .then(res  => console.log(res.data))
+              .catch(err => console.error(err));
+          }
+          catch(err){
+            console.error(err);
+          }
+        }
+      })
+    }
+  }
+
+  useEffect(() => {
+    setInterval(checkNearbyMarkers, 20000);
+  },[]);
+
+  const getVisited = () => {
+    axios.get('https://aplikaceturistickedestinace.azurewebsites.net/api/User/User/Visited/AllModels',
+      {
+        headers: {
+          'Accept': 'application/json',
+          'Authorization': `Bearer ${userToken}`
+        }
+      }
+    )
+      .then(res => console.warn(Object.values(res.data)[0]))
+      .catch(err => console.log('WTF ' + err));
+  }
+
+  useEffect(() => {
+    getVisited();
+  }, [setVisitedLocations])
 
   const onRegionChangeComplete = (region) => {
     const { latitudeDelta } = region;
@@ -171,7 +219,7 @@ const Map = () => {
                   setShowSheet(true);
                 }}
               >
-                <View style={styles.marker}>
+                <View style={[styles.marker, { backgroundColor: visitedLocations && visitedLocations.map(visited => {if(visited.modelId === location.id){return 'green'} else{return '#1DA1F2'}}) }]}>
                   {
                     thumbnails && thumbnails.map(thumbnail => {
                       if (thumbnail.modelID === location.id) {
@@ -190,7 +238,7 @@ const Map = () => {
         {location && (
           <Circle
             center={{ latitude: userLocation && userLocation.latitude, longitude: userLocation && userLocation.longitude }}
-            radius={(20 - zoomLevel) ** 2}
+            radius={(20 - zoomLevel) ** 2.1}
             strokeWidth={(20 - zoomLevel) ** .5}
             strokeColor='#FFF'
             fillColor='#1DA1F2'
