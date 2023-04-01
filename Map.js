@@ -63,8 +63,8 @@ const Map = () => {
         }
       }
     )
-      .then(res => console.warn(Object.values(res.data)[0]))
-      .catch(err => console.log('WTF ' + err));
+      .then(res => setVisitedLocations(Object.values(res.data)[0]))
+      .catch(err => console.log(err));
   }
 
   useEffect(() => {
@@ -101,7 +101,7 @@ const Map = () => {
     setInterval(async () => {
       let currentLocation = await Location.getCurrentPositionAsync({});
       setUserLocation(currentLocation.coords);
-    }, 1000)
+    }, 2000)
   }
 
   const centerLocation = () => {
@@ -208,32 +208,30 @@ const Map = () => {
         onRegionChangeComplete={onRegionChangeComplete}
       >
         {locations && locations.map(location => {
-          if (typeof location === 'object') {
-            return (
-              <Marker
-                key={location.id}
-                coordinate={{ latitude: location.longtitude, longitude: location.latitude }}
-                style={{width: 70, height: 70, position: 'relative'}}
-                onPress={() => {
-                  showBottomSheet(location.type, location.id);
-                  setShowSheet(true);
-                }}
-              >
-                <View style={[styles.marker, { backgroundColor: visitedLocations && visitedLocations.map(visited => {if(visited.modelId === location.id){return 'green'} else{return '#1DA1F2'}}) }]}>
-                  {
-                    thumbnails && thumbnails.map(thumbnail => {
-                      if (thumbnail.modelID === location.id) {
-                        return (
-                          <Image source={{ uri: `data:image/jpeg;base64,${thumbnail.bytes}` }} style={styles.image} />
-                        )
-                      }
-                    })
+          const isVisited = visitedLocations && visitedLocations.some(visited => visited.modelId === location.id);
+          const markerColor = isVisited ? 'green' : '#1DA1F2';
+
+          return (
+            <Marker
+              key={location.id}
+              coordinate={{ latitude: location.longtitude, longitude: location.latitude }}
+              style={{ width: 70, height: 70, position: 'relative' }}
+              onPress={() => {
+                showBottomSheet(location.type, location.id);
+                setShowSheet(true);
+              }}
+            >
+              <View style={[styles.marker, { backgroundColor: markerColor }]}>
+                {thumbnails && thumbnails.map(thumbnail => {
+                  if (thumbnail.modelID === location.id) {
+                    return (
+                      <Image source={{ uri: `data:image/jpeg;base64,${thumbnail.bytes}` }} style={styles.image} />
+                    )
                   }
-                </View>
-              </Marker>
-            )
-          }
-          return null;
+                })}
+              </View>
+            </Marker>
+          )
         })}
         {location && (
           <Circle
