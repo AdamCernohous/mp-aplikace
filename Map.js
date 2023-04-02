@@ -17,7 +17,7 @@ const Map = () => {
   const [category, setCategory] = useState(1);
 
   const [showSheet, setShowSheet] = useState(false);
-  const [sheetId, setSheetId] = useState('');
+  const [sheetId, setSheetId] = useState(null);
 
   const mapRef = useRef(null);
 

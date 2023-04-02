@@ -8,9 +8,11 @@ export const ThemeProvider = ({children}) => {
 
   const storeTheme = async (value) => {
     try {
-      await AsyncStorage.setItem('theme', value.toString());
+      if(value !== null){
+        await AsyncStorage.setItem('theme', value.toString());
+      }
     } catch (err) {
-      console.error(err);
+      console.error('theme'+err);
     }
   };
 
@@ -19,7 +21,7 @@ export const ThemeProvider = ({children}) => {
       const storedTheme = await AsyncStorage.getItem('theme');
       setTheme(storedTheme === 'true');
     } catch (err) {
-      console.error(err);
+      console.error('theme2'+err);
     }
   };
 

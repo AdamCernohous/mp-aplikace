@@ -1,10 +1,9 @@
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
-import { View, Text, Image, SafeAreaView, ActivityIndicator, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { View, Text, SafeAreaView, ActivityIndicator, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import home from "./assets/styles/home";
 import HomeCard from "./components/HomeCard";
-import HomeSelectBtn from "./components/HomeSelectBtn";
 import BottomSheet from './components/BottomSheet';
 import MaterialIcons from 'react-native-vector-icons/Fontisto';
 import * as Location from 'expo-location';
@@ -16,12 +15,11 @@ const Home = () => {
   const {theme} = useContext(ThemeContext);
 
   const [isLoading, setIsLoading] = useState(true);
-  const [error, setError] = useState();
   const [response, setResponse] = useState([]);
   const [images, setImages] = useState([]);
 
   const [showSheet, setShowSheet] = useState(false);
-  const [sheetId, setSheetId] = useState('');
+  const [sheetId, setSheetId] = useState(null);
 
   const [showSettings, setShowSettings] = useState(false);
 
@@ -71,11 +69,11 @@ const Home = () => {
 
     axios.get(url)
       .then(data => setResponse(Object.values(data.data)[0]))
-      .catch(err => console.error(err));
+      .catch(err => console.error('01'+err));
 
     axios.get(thumbnailUrl)
       .then(data => setImages(Object.values(data.data)[0]))
-      .catch(err => console.error(err))
+      .catch(err => console.error('02'+err))
       .finally(() => setIsLoading(false));
   }
 
@@ -104,7 +102,7 @@ const Home = () => {
   useEffect(() => {
     axios.get('https://aplikaceturistickedestinace.azurewebsites.net/api/User/Models/All/Position')
       .then(res => setSearchedData(res.data.positionModels))
-      .catch(err => console.error(err));
+      .catch(err => console.error('03'+err));
   },[setSearchedData]);
 
   useEffect(() => {
@@ -118,6 +116,7 @@ const Home = () => {
           filteredData.map(location => {
             return(
               <TouchableOpacity 
+                key={Object.values(location)[0]}
                 onPress={() => { 
                   setSheetId(location.id);
                   setSearched('');
@@ -149,7 +148,7 @@ const Home = () => {
             const thumbnail = matchingImage ? matchingImage.bytes : '';
 
             return(
-              <TouchableOpacity onPress={() => {
+              <TouchableOpacity key={Object.values(location)[0]} onPress={() => {
                 setShowSheet(true);
                 setSheetId(Object.values(location)[0]);
               }}>

@@ -19,7 +19,8 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
   const [comment, setComment] = useState('');
 
   const [ratings, setRatings] = useState(null);
-  const [ratingsUrl, setRatingsUrl] = useState(`https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/OutlookRating/${sheetId}`)
+  //const [ratingsUrl, setRatingsUrl] = useState(null)
+  
 
   const {theme} = useContext(ThemeContext);
   const {userToken} = useContext(AuthContext);
@@ -28,48 +29,70 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
   const windowHeight = Dimensions.get('window').height;
 
   let url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/Outlook/${sheetId}`;
+  let ratingsUrl = null;
 
   const getData = () => {
     switch(category){
       case 1:
         url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/Outlook/${sheetId}`;
-        setRatingsUrl(`https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/OutlookRating/${sheetId}`);
+        ratingsUrl = `https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/OutlookRating/${sheetId}`;
         break;
       case 2:
         url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Park/Park/${sheetId}`;
-        setRatingsUrl(`https://aplikaceturistickedestinace.azurewebsites.net/api/Park/ParkRating/${sheetId}`);
+        ratingsUrl = `https://aplikaceturistickedestinace.azurewebsites.net/api/Park/ParkRating/${sheetId}`;
         break;
       case 3:
         url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Restaurant/Restaurant/${sheetId}`;
-        setRatingsUrl(`https://aplikaceturistickedestinace.azurewebsites.net/api/Restaurant/RestaurantRating/${sheetId}`);
+        ratingsUrl = `https://aplikaceturistickedestinace.azurewebsites.net/api/Restaurant/RestaurantRating/${sheetId}`;
         break;
       case 4:
         url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Museum/Museum/${sheetId}`;
-        setRatingsUrl(`https://aplikaceturistickedestinace.azurewebsites.net/api/Museum/MuseumRating/${sheetId}`);
+        ratingsUrl = `https://aplikaceturistickedestinace.azurewebsites.net/api/Museum/MuseumRating/${sheetId}`;
         break;
       case 5:
         url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Castle/Castle/${sheetId}`;
-        setRatingsUrl(`https://aplikaceturistickedestinace.azurewebsites.net/api/Castle/CasteRating/${sheetId}`);
+        ratingsUrl = `https://aplikaceturistickedestinace.azurewebsites.net/api/Castle/CasteRating/${sheetId}`;
         break;
       case 6:
         url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Church/Church/${sheetId}`;
-        setRatingsUrl(`https://aplikaceturistickedestinace.azurewebsites.net/api/Church/ChurchRating/${sheetId}`);
+        ratingsUrl = `https://aplikaceturistickedestinace.azurewebsites.net/api/Church/ChurchRating/${sheetId}`;
         break;
       default:
         url = `https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/Outlook/${sheetId}`;
-        setRatingsUrl(`https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/OutlookRating/${sheetId}`);
+        ratingsUrl = `https://aplikaceturistickedestinace.azurewebsites.net/api/Outlook/OutlookRating/${sheetId}`;
         break;
     }
 
-    axios.get(url)
-      .then(data => setResponse(Object.values(data.data)[0]))
-      .catch(err => console.error(err));
+    if(sheetId !== null && sheetId !== undefined){
+      console.log('sheet'+sheetId);
+      console.log('url'+url);
+      try{
+        axios.get(url)
+          .then(data => setResponse(Object.values(data.data)[0]))
+          .catch(err => console.error('sheet1'+err));
+      } catch(err){
+        console.error(err);
+      }
 
-    axios.get('https://aplikaceturistickedestinace.azurewebsites.net/api/User/Pictures/' + sheetId)
-      .then(res => setImages(Object.values(res.data)[0]));
-    
-    axios.get(ratingsUrl)
-      .then(res => setRatings(Object.values(res.data)[0]))
+      try{
+        axios.get('https://aplikaceturistickedestinace.azurewebsites.net/api/User/Pictures/' + sheetId)
+          .then(res => setImages(Object.values(res.data)[0]))
+          .catch(err => console.error('sheet2'+err));
+      } catch(err){
+        console.error(err);
+      }
+    }
+
+    if(sheetId !== null && ratingsUrl !== null && !ratingsUrl.includes('undefined')){  
+      console.log('rateUrl' + ratingsUrl);
+      try{
+        axios.get(ratingsUrl)
+          .then(res => setRatings(Object.values(res.data)[0]))
+          .catch(err => console.error('sheet3'+err));
+      } catch(err){
+        console.error(err);
+      }
+    }
   }
 
   const postData = () => {
@@ -183,7 +206,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
         <ScrollView style={styles.contentContainer}>
           {
             ratings && ratings.map(rating => {
-              console.log(rating)
+              console.log('rating'+rating)
               return(
                 <View style={styles.commentContainer}>
                   <View style={styles.commentHead}>

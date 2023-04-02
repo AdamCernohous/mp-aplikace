@@ -17,10 +17,10 @@ export const AuthProvider = ({children}) => {
             SecureStore.setItemAsync('userToken', res.data.accessToken);
             setUserToken(res.data.accessToken);
         })
-        .catch(err => console.error(err));
+        .catch(err => console.error('login'+err));
       setIsLoading(false);
     } catch(err) {
-      console.error(err);
+      console.error('login2'+err);
     }
   }
 
@@ -38,7 +38,7 @@ export const AuthProvider = ({children}) => {
       console.log(userToken);
       setIsLoading(false);
     } catch(err) {
-      console.error(err);
+      console.error('login3'+err);
     }
   }
 
