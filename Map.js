@@ -235,7 +235,7 @@ const Map = () => {
         })}
         {location && (
           <Circle
-            center={{ latitude: userLocation && userLocation.latitude, longitude: userLocation && userLocation.longitude }}
+            center={{ latitude: userLocation !== undefined ? userLocation.latitude : 50.0896179, longitude: userLocation !== undefined ? userLocation.longitude : 14.4009914 }}
             radius={(20 - zoomLevel) ** 2.1}
             strokeWidth={(20 - zoomLevel) ** .5}
             strokeColor='#FFF'
@@ -262,16 +262,16 @@ const styles = StyleSheet.create({
     height: 70,
     backgroundColor: '#1DA1F2',
     position: 'absolute',
-    borderBottomLeftRadius: '50%',
-    borderTopRightRadius: '50%',
-    borderTopLeftRadius: '50%',
+    borderBottomLeftRadius: 100,
+    borderTopRightRadius: 100,
+    borderTopLeftRadius: 100,
     transform: [{ rotate: '45deg' }],
     top: -45,
   },
   image: {
     width: 60,
     height: 60,
-    borderRadius: '50%',
+    borderRadius: 100,
     position: 'absolute',
     transform: [{ rotate: '-45deg' }],
     top: 5,

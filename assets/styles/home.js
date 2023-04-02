@@ -20,7 +20,7 @@ const home = StyleSheet.create({
     width: 55,
     height: 55,
     //backgroundColor: '#FFF',
-    borderRadius: '50%',
+    borderRadius: 100,
     borderColor: '#1DA1F2',
     borderWidth: 3,
     display: 'flex',
@@ -35,7 +35,7 @@ const home = StyleSheet.create({
   textInput: {
     width: '100%',
     height: 45,
-    borderRadius: '50%',
+    borderRadius: 100,
     paddingLeft: '7%',
     fontFamily: 'lato-regular',
     fontSize: 18
@@ -52,13 +52,13 @@ const home = StyleSheet.create({
     alignItems: 'center',
     justifyContent: 'center',
     marginRight: 10,
-    borderRadius: '50%'
+    borderRadius: 100
   },
   selectDot: {
     bottom: -8,
     width: 5,
     height: 5,
-    borderRadius: '50%',
+    borderRadius: 100,
     backgroundColor: '#1DA1F2'
   },
   text: {

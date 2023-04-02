@@ -24,7 +24,7 @@ const CustomDrawer = () => {
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={{
-            borderRadius: '50%',
+            borderRadius: 100,
             padding: 7
           }}
         >
@@ -40,7 +40,7 @@ const CustomDrawer = () => {
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={{
-            borderRadius: '50%',
+            borderRadius: 100,
             padding: 7
           }}
         >
@@ -56,7 +56,7 @@ const CustomDrawer = () => {
           start={{ x: 0, y: 0 }}
           end={{ x: 1, y: 0 }}
           style={{
-            borderRadius: '50%',
+            borderRadius: 100,
             padding: 7
           }}
         >

@@ -26,7 +26,7 @@ const global = StyleSheet.create({
     color: '#FFF'
   },
   buttonLogin: {
-    borderRadius: '50%',
+    borderRadius: 100,
     backgroundColor: '#FFF',
     color: '#000',
     width: 200,

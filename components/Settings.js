@@ -13,7 +13,7 @@ const Settings = ({showSettings, setShowSettings}) => {
       <View style={{backgroundColor: theme ? '#FFF' : '#010101', flex: 1}}>
         <SafeAreaView style={styles.safeArea}>
           <View style={styles.nav}>
-            <TouchableOpacity style={{backgroundColor: '#FFF', borderRadius: '50%'}} onPress={() => setShowSettings(false)}>
+            <TouchableOpacity style={{backgroundColor: '#FFF', borderRadius: 100}} onPress={() => setShowSettings(false)}>
               <MaterialIcons name='close' size={28} color='#000' />
             </TouchableOpacity>
           </View>
@@ -65,7 +65,7 @@ const styles = StyleSheet.create({
     justifyContent: 'space-between'
   },
   signOutButton: {
-    borderRadius: '50%',
+    borderRadius: 100,
     width: '100%',
     backgroundColor: 'red',
     display: 'flex',

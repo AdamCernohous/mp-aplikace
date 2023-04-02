@@ -269,7 +269,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
         />
         <SafeAreaView style={[styles.safeArea, {}]}>
           <View style={styles.nav}>
-            <TouchableOpacity style={{backgroundColor: '#FFF', borderRadius: '50%'}} onPress={() => setShowSheet(false)}>
+            <TouchableOpacity style={{backgroundColor: '#FFF', borderRadius: 100}} onPress={() => setShowSheet(false)}>
               <MaterialIcons name='close' size={28} color='#000' />
             </TouchableOpacity>
           </View>
@@ -349,7 +349,7 @@ const styles = StyleSheet.create({
   contentNavTextUnderline: {
     width: '150%',
     height: 4,
-    borderRadius: '50%',
+    borderRadius: 100,
     marginTop: 5
   },
   contentContainer: {
@@ -401,7 +401,7 @@ const styles = StyleSheet.create({
     marginRight: 5
   },
   ratingButton: {
-    borderRadius: '50%',
+    borderRadius: 100,
     width: '100%',
     backgroundColor: '#1DA1F2',
     display: 'flex',
