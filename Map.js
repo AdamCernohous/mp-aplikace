@@ -39,7 +39,7 @@ const Map = () => {
             axios.post('https://aplikaceturistickedestinace.azurewebsites.net/api/User/Model/Visited', {
               modelID: location.id
             })
-              .then(res  => console.log(res.data))
+              .then(res  => console.log("bingo " + res.data))
               .catch(err => console.error(err));
           }
           catch(err){
@@ -55,6 +55,8 @@ const Map = () => {
   },[]);
 
   const getVisited = () => {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
+    
     axios.get('https://aplikaceturistickedestinace.azurewebsites.net/api/User/User/Visited/AllModels',
       {
         headers: {

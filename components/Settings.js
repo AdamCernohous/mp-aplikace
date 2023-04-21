@@ -1,12 +1,26 @@
-import { SafeAreaView, View, Modal, TouchableOpacity, StyleSheet, Text, Switch } from "react-native";
+import { useEffect, useState } from "react";
+import { SafeAreaView, View, Modal, TouchableOpacity, StyleSheet, Text, Switch, ScrollView } from "react-native";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
 import { AuthContext } from "../context/AuthContext";
+import axios from "axios";
 
 const Settings = ({showSettings, setShowSettings}) => {
   const {theme, setTheme} = useContext(ThemeContext);
-  const {logoutFunction} = useContext(AuthContext);
+  const {logoutFunction, userToken} = useContext(AuthContext);
+  const [visitedLocations, setVisitedLocations] = useState([]);
+
+  const getVisited = () => {
+    axios.defaults.headers.common['Authorization'] = `Bearer ${userToken}`;
+    axios.get('https://aplikaceturistickedestinace.azurewebsites.net/api/User/User/Visited/AllModels')
+      .then(res => setVisitedLocations(Object.values(res.data)[0]))
+      .catch(err => console.log(err));
+  }
+
+  useEffect(() => {
+    getVisited();
+  }, [setVisitedLocations])
 
   return (
     <Modal visible={showSettings} animationType='slide'>
@@ -29,6 +43,23 @@ const Settings = ({showSettings, setShowSettings}) => {
                 value={!theme}
               />
             </View>
+            <Text style={[styles.text, {fontSize: 18, color: theme ? '#000' : '#FFF', marginTop: 15, marginBottom: 10}]}>Visited Locations</Text>
+            <ScrollView style={{height: 200}}>
+              {visitedLocations && visitedLocations.map(location => {
+                return(
+                  <View style={{marginBottom: 5, display: 'flex', flexDirection: 'row'}}>
+                    <View style={{display: 'flex', alignItems: 'center', justifyContent: 'center', position: 'relative', height: 50}}>
+                      <View style={{position: 'absolute', left: 3.5, top: -15, width: 3, height: 30, backgroundColor: theme ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.2)', marginRight: 5, marginBottom: 5}} />
+                      <View style={{width: 10, height: 10, borderRadius: 100, backgroundColor: theme ? 'rgba(0,0,0,0.2)' : 'rgba(255,255,255,0.2)', marginRight: 5}} />
+                    </View>
+                    <View style={{display: 'flex', justifyContent: 'center'}}>
+                      <Text style={[styles.text, {color: theme ? '#000' : '#FFF'}]}>{location.name}</Text>
+                      <Text style={[styles.text, {color: theme ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)'}]}>{location.dateTimeOfVisit}</Text>
+                    </View>
+                  </View>
+                )
+              })}
+            </ScrollView>
             <TouchableOpacity onPress={logoutFunction} style={styles.signOutButton}>
               <Text style={styles.signOutButtonText}>Sign Out</Text>
             </TouchableOpacity>
