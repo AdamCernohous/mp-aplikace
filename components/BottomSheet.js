@@ -1,5 +1,5 @@
 import { useEffect, useState, useContext } from "react";
-import { Dimensions, Image, Modal, SafeAreaView, StatusBar, StyleSheet, Text, TouchableOpacity, View, TextInput, Keyboard, TouchableWithoutFeedback } from "react-native";
+import { Dimensions, Image, Modal, StatusBar, StyleSheet, Text, TouchableOpacity, View, TextInput, Keyboard, TouchableWithoutFeedback } from "react-native";
 import { ScrollView } from "react-native-gesture-handler";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import axios from "axios";
@@ -267,7 +267,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
             zIndex: -1,
           }}
         />
-        <SafeAreaView style={[styles.safeArea, {}]}>
+        <View style={[styles.safeArea, { paddingTop: 30 }]}>
           <View style={styles.nav}>
             <TouchableOpacity style={{backgroundColor: '#FFF', borderRadius: 100}} onPress={() => setShowSheet(false)}>
               <MaterialIcons name='close' size={28} color='#000' />
@@ -305,7 +305,7 @@ const BottomSheet = ({showSheet, setShowSheet, sheetId, category}) => {
             </TouchableOpacity>
           </View>
           {showContent()}
-        </SafeAreaView>
+        </View>
       </View>
       </TouchableWithoutFeedback>       
     </Modal>

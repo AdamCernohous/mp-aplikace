@@ -1,5 +1,5 @@
 import { useEffect, useState } from "react";
-import { SafeAreaView, View, Modal, TouchableOpacity, StyleSheet, Text, Switch, ScrollView } from "react-native";
+import { View, Modal, TouchableOpacity, StyleSheet, Text, Switch, ScrollView } from "react-native";
 import MaterialIcons from 'react-native-vector-icons/MaterialIcons';
 import { useContext } from "react";
 import { ThemeContext } from "../context/ThemeContext";
@@ -25,7 +25,7 @@ const Settings = ({showSettings, setShowSettings}) => {
   return (
     <Modal visible={showSettings} animationType='slide'>
       <View style={{backgroundColor: theme ? '#FFF' : '#010101', flex: 1}}>
-        <SafeAreaView style={styles.safeArea}>
+        <View style={[styles.safeArea, { paddingTop: 30 }]}>
           <View style={styles.nav}>
             <TouchableOpacity style={{backgroundColor: '#FFF', borderRadius: 100}} onPress={() => setShowSettings(false)}>
               <MaterialIcons name='close' size={28} color='#000' />
@@ -65,7 +65,7 @@ const Settings = ({showSettings, setShowSettings}) => {
             </TouchableOpacity>
           </View>
           
-        </SafeAreaView>
+        </View>
       </View>
     </Modal>
   );

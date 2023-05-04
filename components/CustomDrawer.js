@@ -1,4 +1,4 @@
-import { View, SafeAreaView, TouchableOpacity } from "react-native";
+import { View, TouchableOpacity } from "react-native";
 import drawer from "../assets/styles/drawer";
 import MaterialIcons from 'react-native-vector-icons/MaterialCommunityIcons';
 import { useState, useContext } from "react";
