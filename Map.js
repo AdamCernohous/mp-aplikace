@@ -51,7 +51,7 @@ const Map = () => {
   }
 
   useEffect(() => {
-    setInterval(checkNearbyMarkers, 20000);
+    setInterval(checkNearbyMarkers, 60000);
   },[]);
 
   const getVisited = () => {
@@ -103,7 +103,7 @@ const Map = () => {
     setInterval(async () => {
       let currentLocation = await Location.getCurrentPositionAsync({});
       setUserLocation(currentLocation.coords);
-    }, 2000)
+    }, 5000)
   }
 
   const centerLocation = () => {
@@ -217,7 +217,7 @@ const Map = () => {
             <Marker
               key={location.id}
               coordinate={{ latitude: location.longtitude, longitude: location.latitude }}
-              style={{ width: 70, height: 70, position: 'relative' }}
+              style={{ width: 100, height: 100, position: 'relative' }}
               onPress={() => {
                 showBottomSheet(location.type, location.id);
                 setShowSheet(true);
@@ -268,7 +268,7 @@ const styles = StyleSheet.create({
     borderTopRightRadius: 100,
     borderTopLeftRadius: 100,
     transform: [{ rotate: '45deg' }],
-    top: -45,
+    top: 0,
   },
   image: {
     width: 60,
