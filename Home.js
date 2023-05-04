@@ -1,6 +1,6 @@
 import axios from "axios";
 import { useEffect, useState, useContext } from "react";
-import { View, Text, SafeAreaView, ActivityIndicator, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
+import { View, Text, ActivityIndicator, TouchableOpacity, TouchableWithoutFeedback, Keyboard } from "react-native";
 import { ScrollView, TextInput } from "react-native-gesture-handler";
 import home from "./assets/styles/home";
 import HomeCard from "./components/HomeCard";
@@ -169,7 +169,7 @@ const Home = () => {
 
   return (
     <TouchableWithoutFeedback onPress={Keyboard.dismiss}>
-      <SafeAreaView style={{flex: 1, backgroundColor: theme ? '#FFF' : '#010101'}}>
+      <View style={{flex: 1, paddingTop: 30, backgroundColor: theme ? '#FFF' : '#010101'}}>
         <View style={[home.head, {marginTop: 10, marginBottom: 10}]}>
           <View>
             <Text style={[home.text, {fontSize: 16, color: theme ? 'rgba(0,0,0,0.5)' : 'rgba(255,255,255,0.5)'}]}>Current location</Text>
@@ -269,7 +269,7 @@ const Home = () => {
           />
         {searchFilter()}
         </View>
-      </SafeAreaView>
+      </View>
     </TouchableWithoutFeedback>
   );
 }

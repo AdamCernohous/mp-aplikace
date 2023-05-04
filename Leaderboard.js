@@ -1,6 +1,6 @@
 import axios from 'axios';
 import { useEffect, useState, useContext } from 'react';
-import { View, Text, SafeAreaView, ActivityIndicator } from 'react-native';
+import { View, Text, ActivityIndicator } from 'react-native';
 import { ScrollView } from 'react-native-gesture-handler';
 import leaderboard from './assets/styles/leaderboard';
 import { ThemeContext } from './context/ThemeContext';
@@ -33,15 +33,15 @@ const Leaderboard = () => {
   
   if(isLoading) {
     return (
-      <SafeAreaView>
+      <View style={{paddingTop: 15}}>
         <ActivityIndicator size="large" />
-      </SafeAreaView>
+      </View>
     )
   }
   else {
     return (
-      <View style={{flex: 1, backgroundColor: theme ? '#FFF' : '#010101'}}>
-      <SafeAreaView style={leaderboard.container}>
+      <View style={{flex: 1, paddingTop: 30, backgroundColor: theme ? '#FFF' : '#010101'}}>
+      <View style={leaderboard.container}>
         <Text style={[leaderboard.header, {color: theme ? '#000' : '#FFF'}]}>Leaderboard</Text>
         <View style={leaderboard.table}>
           {/* <View style={leaderboard.tableHead}>
@@ -97,7 +97,7 @@ const Leaderboard = () => {
             }
           </ScrollView>
         </View>
-      </SafeAreaView>
+      </View>
       </View>
     )
   }
