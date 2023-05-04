@@ -1,10 +1,10 @@
 import { createContext, useEffect, useState } from "react";
-import { AsyncStorage } from 'react-native';
+import AsyncStorage from '@react-native-async-storage/async-storage';
 
 export const ThemeContext = createContext();
 
 export const ThemeProvider = ({children}) => {
-  const [theme, setTheme] = useState(null);
+  const [theme, setTheme] = useState(true);
 
   const storeTheme = async (value) => {
     try {
